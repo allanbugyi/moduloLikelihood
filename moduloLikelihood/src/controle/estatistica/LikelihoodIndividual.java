@@ -5,8 +5,6 @@
  */
 package controle.estatistica;
 
-import controle.ModuloLikelihood;
-
 /**
  *
  * @author allan

@@ -27,21 +27,88 @@ public class TelaHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        EstudoMenu = new javax.swing.JMenu();
+        EstudoCadastrar = new javax.swing.JMenuItem();
+        EstudoConsultar = new javax.swing.JMenuItem();
+        EstudoExcluir = new javax.swing.JMenuItem();
+        AgruparMenu = new javax.swing.JMenu();
+        BasesMenu = new javax.swing.JMenu();
+        BasesImportar = new javax.swing.JMenuItem();
+        BasesExportar = new javax.swing.JMenuItem();
+        AjudaMenu = new javax.swing.JMenu();
+        DocumentacaoAjuda = new javax.swing.JMenuItem();
+        WikiAjuda = new javax.swing.JMenuItem();
+        SobreAjuda = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Módulo Likelihood ");
+        setName("TelaHome"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(800, 600));
+
+        EstudoMenu.setText("Estudo");
+
+        EstudoCadastrar.setText("Cadastrar");
+        EstudoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstudoCadastrarActionPerformed(evt);
+            }
+        });
+        EstudoMenu.add(EstudoCadastrar);
+
+        EstudoConsultar.setText("Consultar");
+        EstudoMenu.add(EstudoConsultar);
+
+        EstudoExcluir.setText("Excluir");
+        EstudoMenu.add(EstudoExcluir);
+
+        jMenuBar1.add(EstudoMenu);
+
+        AgruparMenu.setText("Agrupar");
+        jMenuBar1.add(AgruparMenu);
+
+        BasesMenu.setText("Bases");
+
+        BasesImportar.setText("Importar");
+        BasesMenu.add(BasesImportar);
+
+        BasesExportar.setText("Exportar");
+        BasesMenu.add(BasesExportar);
+
+        jMenuBar1.add(BasesMenu);
+
+        AjudaMenu.setText("Ajuda");
+
+        DocumentacaoAjuda.setText("Documentação");
+        AjudaMenu.add(DocumentacaoAjuda);
+
+        WikiAjuda.setText("Wiki");
+        AjudaMenu.add(WikiAjuda);
+
+        SobreAjuda.setText("Sobre");
+        AjudaMenu.add(SobreAjuda);
+
+        jMenuBar1.add(AjudaMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 808, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 574, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void EstudoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoCadastrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EstudoCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +146,18 @@ public class TelaHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu AgruparMenu;
+    private javax.swing.JMenu AjudaMenu;
+    private javax.swing.JMenuItem BasesExportar;
+    private javax.swing.JMenuItem BasesImportar;
+    private javax.swing.JMenu BasesMenu;
+    private javax.swing.JMenuItem DocumentacaoAjuda;
+    private javax.swing.JMenuItem EstudoCadastrar;
+    private javax.swing.JMenuItem EstudoConsultar;
+    private javax.swing.JMenuItem EstudoExcluir;
+    private javax.swing.JMenu EstudoMenu;
+    private javax.swing.JMenuItem SobreAjuda;
+    private javax.swing.JMenuItem WikiAjuda;
+    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }

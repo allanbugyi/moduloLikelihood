@@ -11,8 +11,20 @@ package controle.estatistica;
  */
 public class ErroPadraoIndividual {
     //erro padrao
-    private double SElnLRpositivo, SElnLRnegativo; //Erro padrao do logaritmo natural da Likelihood positiva e negativa
+    private double SElnLRpositivo, SElnLRnegativo; //Erro padrao do logaritmo natural da Likelihood positivo e negativo
+    private Integer idLikelihood;
     
+    public ErroPadraoIndividual(Integer idLikelihoodIndividual){
+        this.idLikelihood = idLikelihood;
+    }
     
+    public void calculaErroPadraoLRpositivo(){
+        //necessario fazer consulta do LikelihoodIndividual respectivo pelo ID
+        //this.SElnLRpositivo = Math.sqrt();
+    }
+    
+    public void calculaErroPadraoLRnegativo(){
+        
+    }
     
 }
