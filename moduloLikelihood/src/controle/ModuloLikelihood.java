@@ -18,6 +18,7 @@ public  class ModuloLikelihood {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new gui.TelaHome().setVisible(true);
     }
     
     public Integer getIdContador() {

@@ -107,7 +107,7 @@ public class TelaHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void EstudoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoCadastrarActionPerformed
-        // TODO add your handling code here:
+        new TelaEstudoIndividual("Cadastrar").setVisible(true);
     }//GEN-LAST:event_EstudoCadastrarActionPerformed
 
     /**

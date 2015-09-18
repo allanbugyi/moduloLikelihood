@@ -5,6 +5,8 @@
  */
 package gui;
 
+import controle.Estudoindividual;
+
 /**
  *
  * @author allan
@@ -13,8 +15,14 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaEstudoIndividual
+     * @param textoBotao
      */
-    public TelaEstudoIndividual() {
+    public TelaEstudoIndividual(String textoBotao) {
+        initComponents();
+        this.EstudoButton_button.setText(textoBotao);
+    }
+    
+    public TelaEstudoIndividual(){
         initComponents();
     }
 
@@ -27,15 +35,31 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        EstudoID_label = new javax.swing.JLabel();
-        EstudoID_text = new javax.swing.JTextField();
+        EstudoTabela_table = new javax.swing.JTable();
         EstudoDesc_label = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         EstudoDesc_textarea = new javax.swing.JTextArea();
+        EstudoTitulo_label = new javax.swing.JLabel();
+        EstudoTitulo_text = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        EstudoTabela_table = new javax.swing.JTable();
+        EstudoButton_button = new javax.swing.JButton();
+        EstudoID_label = new javax.swing.JLabel();
+        EstudoID_text = new javax.swing.JTextField();
+
+        EstudoTabela_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Positivo", null, null, null},
+                {"Negativo", null, null, null},
+                {"Total", null, null, null}
+            },
+            new String [] {
+                "Teste Experimental", "Com doença", "Sem doença", "Total"
+            }
+        ));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        EstudoID_label.setText("ID");
+        setName("TelaEstudoIndividual"); // NOI18N
 
         EstudoDesc_label.setText("Descrição");
 
@@ -43,35 +67,65 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         EstudoDesc_textarea.setRows(5);
         jScrollPane1.setViewportView(EstudoDesc_textarea);
 
+        EstudoTitulo_label.setText("Título");
+
+        EstudoTabela_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Positivo", null, null, null},
+                {"Negativo", null, null, null},
+                {"Total", null, null, null}
+            },
+            new String [] {
+                "Teste Experimental", "Com doença", "Sem doença", "Total"
+            }
+        ));
+
+        EstudoID_label.setText("ID");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(EstudoID_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(EstudoID_text, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(EstudoDesc_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(454, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(EstudoDesc_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(EstudoID_label))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(EstudoTitulo_label)
+                                .addGap(18, 18, 18)
+                                .addComponent(EstudoTitulo_text, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(EstudoButton_button, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                            .addComponent(EstudoID_text))))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(EstudoTitulo_label)
+                        .addComponent(EstudoTitulo_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(EstudoButton_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EstudoDesc_label)
                     .addComponent(EstudoID_label)
                     .addComponent(EstudoID_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EstudoDesc_label)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(398, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,10 +167,15 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EstudoButton_button;
     private javax.swing.JLabel EstudoDesc_label;
     private javax.swing.JTextArea EstudoDesc_textarea;
     private javax.swing.JLabel EstudoID_label;
     private javax.swing.JTextField EstudoID_text;
+    private javax.swing.JTable EstudoTabela_table;
+    private javax.swing.JLabel EstudoTitulo_label;
+    private javax.swing.JTextField EstudoTitulo_text;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
