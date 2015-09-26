@@ -8,8 +8,8 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root123</property>
     <property name="hibernate.current_session_context_class">jta</property>
-    <mapping resource="controle/Estudoindividual.hbm.xml"/>
-    <mapping resource="controle/Metanaliseestudoindividual.hbm.xml"/>
-    <mapping resource="controle/Estudoglobal.hbm.xml"/>
+    <mapping resource="mapeamento/Estudoindividual.hbm.xml"/>
+    <mapping resource="mapeamento/Metanaliseestudoindividual.hbm.xml"/>
+    <mapping resource="mapeamento/Estudoglobal.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

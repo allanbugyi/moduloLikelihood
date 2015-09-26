@@ -42,12 +42,13 @@ public class TelaHome extends javax.swing.JFrame {
         SobreAjuda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Módulo Likelihood ");
+        setTitle("SHELL PEARSON | Módulo Likelihood ");
         setName("TelaHome"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         EstudoMenu.setText("Estudo");
 
+        EstudoCadastrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         EstudoCadastrar.setText("Cadastrar");
         EstudoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,7 +57,13 @@ public class TelaHome extends javax.swing.JFrame {
         });
         EstudoMenu.add(EstudoCadastrar);
 
+        EstudoConsultar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         EstudoConsultar.setText("Consultar");
+        EstudoConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstudoConsultarActionPerformed(evt);
+            }
+        });
         EstudoMenu.add(EstudoConsultar);
 
         EstudoExcluir.setText("Excluir");
@@ -109,6 +116,10 @@ public class TelaHome extends javax.swing.JFrame {
     private void EstudoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoCadastrarActionPerformed
         new TelaEstudoIndividual("Cadastrar").setVisible(true);
     }//GEN-LAST:event_EstudoCadastrarActionPerformed
+
+    private void EstudoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoConsultarActionPerformed
+        new TelaEstudoIndividual("Consultar").setVisible(true);
+    }//GEN-LAST:event_EstudoConsultarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -14,12 +14,20 @@ import org.hibernate.SessionFactory;
  */
 public class CRUD {
     
+    private static Session session = null;
+    private static SessionFactory factory = null;
+    
+    
+    
     public CRUD(){
     }
     
-    public void conectaBanco(){
-        SessionFactory factory  = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
+    public static void criaSessaoHibernate(){
+        factory  = HibernateUtil.getSessionFactory();
+        session = factory.openSession();
+    }
+    public static void fechaSessaoHibernate(){
+        session.getTransaction().commit();
     }
     
     public void iniciaTransacao(){

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 18, 2015 3:44:32 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="metanalise" name="mapeamento.Metanaliseestudoindividual" optimistic-lock="version" table="metanaliseestudoindividual">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="mapeamento.Estudoindividual" fetch="select" name="estudoindividual">
+      <column name="idEstudoIndividual"/>
+    </many-to-one>
+    <property name="lkPositivo" type="double">
+      <column name="lkPositivo" not-null="true" precision="22" scale="0"/>
+    </property>
+    <property name="lkNegativo" type="double">
+      <column name="lkNegativo" not-null="true" precision="22" scale="0"/>
+    </property>
+    <property name="erroPadrao" type="double">
+      <column name="erroPadrao" not-null="true" precision="22" scale="0"/>
+    </property>
+    <property name="intervaloConfSup" type="double">
+      <column name="intervaloConfSup" not-null="true" precision="22" scale="0"/>
+    </property>
+    <property name="intervaloConfInf" type="double">
+      <column name="intervaloConfInf" not-null="true" precision="22" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

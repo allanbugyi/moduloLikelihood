@@ -1,4 +1,4 @@
-package controle;
+package mapeamento;
 // Generated Sep 18, 2015 3:44:32 PM by Hibernate Tools 4.3.1
 
 
