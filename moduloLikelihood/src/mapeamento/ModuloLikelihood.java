@@ -10,19 +10,18 @@ package mapeamento;
  * @author allan
  */
 public  class ModuloLikelihood {
-
-    private static Integer idContador;
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        persistencia.CRUD.criaSessaoHibernate();
         new gui.TelaHome().setVisible(true);
+        
     }
     
-    public Integer getIdContador() {
-        return idContador;
+    public static void fechaSessaoHibernate(){
+        persistencia.CRUD.fechaSessaoHibernate();
     }
-    
 }

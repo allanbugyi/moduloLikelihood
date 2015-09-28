@@ -5,7 +5,10 @@
  */
 package gui;
 
+import java.awt.List;
+import javax.swing.JOptionPane;
 import mapeamento.Estudoindividual;
+import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
  *
@@ -363,6 +366,15 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     private void EstudoButton_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoButton_buttonActionPerformed
         if(this.EstudoButton_button.getText().equals("Cadastrar")){
             
+        } else{
+            try {
+                List resultadosConsulta = persistencia.CRUD.executaConsulta(EstudoTitulo_text.getText(), EstudoID_text.getText());
+                if(!resultadosConsulta.equals(null)){
+                    this.atualizaDados_Tela(resultadosConsulta);
+                }
+            } catch (ModuloLikelihoodException ex) {
+                JOptionPane.showMessageDialog(this.rootPane, ex);
+            }
         }
     }//GEN-LAST:event_EstudoButton_buttonActionPerformed
 
@@ -399,6 +411,23 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                 new TelaEstudoIndividual().setVisible(true);
             }
         });
+    }
+    
+    private void atualizaDados_Tela(List listaDados){
+        Estudoindividual estInd = null;
+        for(Object o : listaDados.getItems()){
+            estInd = (Estudoindividual) o;
+        }
+        
+        this.EstudoID_text.setText(estInd.getId().toString());
+        this.EstudoTitulo_text.setText(estInd.getTitulo());
+        this.EstudoDesc_textarea.setText(estInd.getDescricao());
+        this.EstudoTabela_VPtext.setText(String.valueOf(estInd.getVp()));
+        this.EstudoTabela_FPtext.setText(String.valueOf(estInd.getFp()));
+        this.EstudoTabela_FPtext.setText(String.valueOf(estInd.getVn()));
+        this.EstudoTabela_FPtext.setText(String.valueOf(estInd.getFn()));
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

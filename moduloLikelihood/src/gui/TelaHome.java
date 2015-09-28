@@ -5,6 +5,8 @@
  */
 package gui;
 
+import mapeamento.ModuloLikelihood;
+
 /**
  *
  * @author allan
@@ -45,6 +47,11 @@ public class TelaHome extends javax.swing.JFrame {
         setTitle("SHELL PEARSON | Módulo Likelihood ");
         setName("TelaHome"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         EstudoMenu.setText("Estudo");
 
@@ -103,7 +110,7 @@ public class TelaHome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 808, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,6 +127,10 @@ public class TelaHome extends javax.swing.JFrame {
     private void EstudoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoConsultarActionPerformed
         new TelaEstudoIndividual("Consultar").setVisible(true);
     }//GEN-LAST:event_EstudoConsultarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        ModuloLikelihood.fechaSessaoHibernate();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
