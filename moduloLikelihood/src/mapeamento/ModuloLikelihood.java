@@ -16,12 +16,12 @@ public  class ModuloLikelihood {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        persistencia.CRUD.criaSessaoHibernate();
-        new gui.TelaHome().setVisible(true);
-        
+        //persistencia.CRUD.criaSessaoHibernate();
+        //new gui.TelaHome().setVisible(true);
+        new estatistica.Metanalise().printa();
     }
     
     public static void fechaSessaoHibernate(){
-        persistencia.CRUD.fechaSessaoHibernate();
+        //persistencia.CRUD.fechaSessaoHibernate();
     }
 }
