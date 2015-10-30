@@ -24,22 +24,14 @@ public class Estudoindividual  implements java.io.Serializable {
     public Estudoindividual() {
     }
 
-	
-    public Estudoindividual(String titulo, int vp, int fp, int vn, int fn) {
-        this.titulo = titulo;
-        this.vp = vp;
-        this.fp = fp;
-        this.vn = vn;
-        this.fn = fn;
-    }
-    public Estudoindividual(Estudoglobal estudoglobal, String titulo, String descricao, int vp, int fp, int vn, int fn, Set metanaliseestudoindividuals) {
+    public Estudoindividual(Estudoglobal estudoglobal, String titulo, String descricao, String vp, String fp, String vn, String fn, Set metanaliseestudoindividuals) {
        this.estudoglobal = estudoglobal;
        this.titulo = titulo;
        this.descricao = descricao;
-       this.vp = vp;
-       this.fp = fp;
-       this.vn = vn;
-       this.fn = fn;
+       this.vp = Integer.parseInt(vp);
+       this.fp = Integer.parseInt(fp);
+       this.vn = Integer.parseInt(vn);
+       this.fn = Integer.parseInt(fn);
        this.metanaliseestudoindividuals = metanaliseestudoindividuals;
     }
    

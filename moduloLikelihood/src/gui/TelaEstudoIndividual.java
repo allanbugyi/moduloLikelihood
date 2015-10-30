@@ -5,7 +5,8 @@
  */
 package gui;
 
-import java.awt.List;
+
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import mapeamento.Estudoindividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
@@ -20,17 +21,16 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
      * Creates new form TelaEstudoIndividual
      * @param textoBotao
      */
-    public TelaEstudoIndividual(String textoBotao) {
-        initComponents();
-        this.EstudoButton_button.setText(textoBotao);
-        if(textoBotao.equals("Consultar")){
-            this.EstudoID_text.setEditable(true);
-            this.EstudoDesc_textarea.setEditable(false);
-            this.EstudoDesc_textarea.setBackground(getBackground());
-            this.EstudoTabela_VPtext.setEditable(false);
-            this.EstudoTabela_FPtext.setEditable(false);
-            this.EstudoTabela_FNtext.setEditable(false);
-            this.EstudoTabela_VNtext.setEditable(false);
+    public TelaEstudoIndividual(String textoBotao, int intervaloDeConfianca) {
+        try{
+            confereIntervaloDeConfianca(intervaloDeConfianca);
+            initComponents();
+            this.EstudoButton_button.setText(textoBotao);
+            if(textoBotao.equals("Consultar")){
+                    atualizaDados_Tela(textoBotao);
+            }
+        } catch (ModuloLikelihoodException ex){
+            JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
         }
     }
     
@@ -76,11 +76,14 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         EstudoTabela_TotalD = new javax.swing.JTextField();
         EstudoTabela_TotalND = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
         EstudoTabela_TotalND1 = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
         EstudoTabela_label8 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jSeparator9 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator11 = new javax.swing.JSeparator();
 
         EstudoTabela_table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,6 +112,11 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         EstudoButton_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EstudoButton_buttonActionPerformed(evt);
+            }
+        });
+        EstudoButton_button.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EstudoButton_buttonKeyPressed(evt);
             }
         });
 
@@ -142,18 +150,23 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
 
         EstudoTabela_label6.setText("Total");
 
+        EstudoTabela_VPtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        EstudoTabela_FPtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EstudoTabela_FPtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EstudoTabela_FPtextActionPerformed(evt);
             }
         });
 
+        EstudoTabela_FNtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EstudoTabela_FNtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EstudoTabela_FNtextActionPerformed(evt);
             }
         });
 
+        EstudoTabela_VNtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         EstudoTabela_VNtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EstudoTabela_VNtextActionPerformed(evt);
@@ -161,8 +174,10 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         });
 
         EstudoTabela_TotalP.setEditable(false);
+        EstudoTabela_TotalP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         EstudoTabela_TotalN.setEditable(false);
+        EstudoTabela_TotalN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -170,24 +185,31 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         EstudoTabela_label7.setText("Total");
 
         EstudoTabela_TotalD.setEditable(false);
+        EstudoTabela_TotalD.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         EstudoTabela_TotalND.setEditable(false);
+        EstudoTabela_TotalND.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-
         EstudoTabela_TotalND1.setEditable(false);
+        EstudoTabela_TotalND1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         EstudoTabela_label8.setText("Teste de referência");
+
+        jSeparator8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
+        jSeparator9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
+        jSeparator10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
+        jSeparator5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+
+        jSeparator11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,57 +218,70 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(EstudoTabela_label1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(EstudoTabela_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(EstudoTabela_label5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(EstudoTabela_label6)
+                        .addGap(125, 125, 125))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
+                                .addGap(43, 43, 43)
                                 .addComponent(EstudoTabela_label7)
-                                .addGap(48, 48, 48)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(EstudoTabela_TotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(EstudoTabela_TotalND, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(EstudoTabela_TotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(EstudoTabela_label1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(EstudoTabela_label4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(EstudoTabela_label5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EstudoTabela_label6)
-                                .addGap(41, 41, 41))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(EstudoTabela_label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EstudoTabela_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(EstudoTabela_VPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(EstudoTabela_FNtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(12, 12, 12)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(EstudoTabela_FPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(EstudoTabela_VNtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(8, 8, 8)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(8, 8, 8)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(EstudoTabela_TotalP)
-                                .addComponent(EstudoTabela_TotalN)))
-                        .addComponent(jSeparator1)))
-                .addGap(84, 84, 84))
+                                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(EstudoTabela_label2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(EstudoTabela_label3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(EstudoTabela_VPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EstudoTabela_FNtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator1))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jSeparator8)
+                                            .addComponent(EstudoTabela_VNtext, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator5)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(EstudoTabela_FPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 1, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(EstudoTabela_TotalND, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator11)
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(EstudoTabela_TotalP, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                .addComponent(EstudoTabela_TotalN, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(76, 76, 76))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(EstudoTabela_label8)
@@ -266,40 +301,55 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                         .addComponent(EstudoTabela_label1, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(EstudoTabela_label6, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(EstudoTabela_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EstudoTabela_VPtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EstudoTabela_FPtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EstudoTabela_TotalP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(1, 1, 1)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(EstudoTabela_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EstudoTabela_FNtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EstudoTabela_VNtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EstudoTabela_TotalN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3))
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(EstudoTabela_label2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EstudoTabela_VPtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EstudoTabela_FPtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(EstudoTabela_label3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EstudoTabela_FNtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(EstudoTabela_VNtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(EstudoTabela_label7)
-                                .addComponent(EstudoTabela_TotalD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(EstudoTabela_TotalND, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(EstudoTabela_label7)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(EstudoTabela_TotalP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(13, 13, 13)
+                                        .addComponent(EstudoTabela_TotalN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(74, 74, 74)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(EstudoTabela_TotalD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EstudoTabela_TotalND, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSeparator3)
+                            .addComponent(jSeparator2))
+                        .addGap(66, 66, 66))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -365,18 +415,38 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
 
     private void EstudoButton_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoButton_buttonActionPerformed
         if(this.EstudoButton_button.getText().equals("Cadastrar")){
-            
-        } else{
             try {
-                List resultadosConsulta = persistencia.CRUD.executaConsulta(EstudoTitulo_text.getText(), EstudoID_text.getText());
-                if(!resultadosConsulta.equals(null)){
-                    this.atualizaDados_Tela(resultadosConsulta);
-                }
+                persistencia.CRUD.executaCadastro(new Estudoindividual(null, this.EstudoTitulo_text.getText()  , this.EstudoDesc_textarea.getText(),
+                                                                       this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(),
+                                                                       this.EstudoTabela_VNtext.getText(), this.EstudoTabela_FNtext.getText(), new Metanalise()));
+                this.atualizaDados_Tela();
+                JOptionPane.showMessageDialog(this.rootPane, "Cadastro efetuado com sucesso!");
             } catch (ModuloLikelihoodException ex) {
-                JOptionPane.showMessageDialog(this.rootPane, ex);
+                JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this.rootPane, "O cadastro do Estudo Individual falhou. Verifique os valores fornecidos (título e tabela 2x2)");
+            }
+        } else {
+            if(this.EstudoButton_button.getText().equals("Consultar")){
+                try {
+                    ArrayList resultadosConsulta = persistencia.CRUD.executaConsulta(EstudoID_text.getText(), EstudoTitulo_text.getText());
+                    if(!resultadosConsulta.equals(null) && resultadosConsulta.size() > 0){
+                        this.atualizaDados_Tela(resultadosConsulta);
+                    } else {
+                        JOptionPane.showMessageDialog(this.rootPane, "Nenhum estudo individual encontrado");
+                    }
+                } catch (ModuloLikelihoodException ex) {
+                    JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+                }
+            } else { // "Alterar"
+                
             }
         }
     }//GEN-LAST:event_EstudoButton_buttonActionPerformed
+
+    private void EstudoButton_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EstudoButton_buttonKeyPressed
+
+    }//GEN-LAST:event_EstudoButton_buttonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -413,21 +483,51 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         });
     }
     
-    private void atualizaDados_Tela(List listaDados){
+    public void confereIntervaloDeConfianca(int intervaloDeConfianca) throws ModuloLikelihoodException {
+        if(intervaloDeConfianca <= 0){
+            throw new ModuloLikelihoodException("Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
+        }
+    }
+    
+    private void atualizaDados_Tela(String textoBotao){
+        this.EstudoID_text.setEditable(true);
+        this.EstudoDesc_textarea.setEditable(false);
+        this.EstudoDesc_textarea.setBackground(getBackground());
+        this.EstudoTabela_VPtext.setEditable(false);
+        this.EstudoTabela_FPtext.setEditable(false);
+        this.EstudoTabela_FNtext.setEditable(false);
+        this.EstudoTabela_VNtext.setEditable(false);
+    }
+    
+    private void atualizaDados_Tela(ArrayList listaDados){
         Estudoindividual estInd = null;
-        for(Object o : listaDados.getItems()){
+        for(Object o : listaDados){
             estInd = (Estudoindividual) o;
         }
         
         this.EstudoID_text.setText(estInd.getId().toString());
+        this.EstudoID_text.setEditable(false);
         this.EstudoTitulo_text.setText(estInd.getTitulo());
         this.EstudoDesc_textarea.setText(estInd.getDescricao());
         this.EstudoTabela_VPtext.setText(String.valueOf(estInd.getVp()));
         this.EstudoTabela_FPtext.setText(String.valueOf(estInd.getFp()));
-        this.EstudoTabela_FPtext.setText(String.valueOf(estInd.getVn()));
-        this.EstudoTabela_FPtext.setText(String.valueOf(estInd.getFn()));
+        this.EstudoTabela_VNtext.setText(String.valueOf(estInd.getVn()));
+        this.EstudoTabela_FNtext.setText(String.valueOf(estInd.getFn()));
         
+        this.EstudoButton_button.setText("Alterar");
+    }
+    
+    private void atualizaDados_Tela(){
+        this.EstudoID_text.setText("");
+        this.EstudoID_text.setEditable(false);
+        this.EstudoTitulo_text.setText("");
+        this.EstudoDesc_textarea.setText("");
+        this.EstudoTabela_VPtext.setText("");
+        this.EstudoTabela_FPtext.setText("");
+        this.EstudoTabela_VNtext.setText("");
+        this.EstudoTabela_FNtext.setText("");
         
+        this.EstudoButton_button.setText("Cadastrar");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -459,11 +559,14 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     // End of variables declaration//GEN-END:variables
 }

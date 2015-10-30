@@ -5,7 +5,10 @@
  */
 package gui;
 
+import java.awt.Color;
+import javax.swing.JOptionPane;
 import mapeamento.ModuloLikelihood;
+import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
  *
@@ -13,6 +16,8 @@ import mapeamento.ModuloLikelihood;
  */
 public class TelaHome extends javax.swing.JFrame {
 
+    private int intervaloDeConfianca;
+    
     /**
      * Creates new form TelaHome
      */
@@ -29,6 +34,10 @@ public class TelaHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        IntervaloDeConfianca_label = new javax.swing.JLabel();
+        IntervaloDeConfianca_text = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         EstudoMenu = new javax.swing.JMenu();
         EstudoCadastrar = new javax.swing.JMenuItem();
@@ -46,12 +55,53 @@ public class TelaHome extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SHELL PEARSON | Módulo Likelihood ");
         setName("TelaHome"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        IntervaloDeConfianca_label.setText("Intervalo de Confiança");
+
+        IntervaloDeConfianca_text.setForeground(new java.awt.Color(153, 153, 153));
+        IntervaloDeConfianca_text.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        IntervaloDeConfianca_text.setText("95");
+        IntervaloDeConfianca_text.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                IntervaloDeConfianca_textKeyTyped(evt);
+            }
+        });
+
+        jLabel1.setText("%");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(IntervaloDeConfianca_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addComponent(IntervaloDeConfianca_text, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(19, 19, 19))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(IntervaloDeConfianca_label)
+                    .addComponent(IntervaloDeConfianca_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
 
         EstudoMenu.setText("Estudo");
 
@@ -110,27 +160,48 @@ public class TelaHome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(485, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void EstudoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoCadastrarActionPerformed
-        new TelaEstudoIndividual("Cadastrar").setVisible(true);
+        
+        try{
+            this.intervaloDeConfianca = Integer.parseInt(IntervaloDeConfianca_text.getText()); 
+            new TelaEstudoIndividual("Cadastrar", this.intervaloDeConfianca).setVisible(true);
+        }
+        catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this.rootPane, "Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
+        }
     }//GEN-LAST:event_EstudoCadastrarActionPerformed
 
     private void EstudoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoConsultarActionPerformed
-        new TelaEstudoIndividual("Consultar").setVisible(true);
+        new TelaEstudoIndividual("Consultar", this.intervaloDeConfianca).setVisible(true);
     }//GEN-LAST:event_EstudoConsultarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         ModuloLikelihood.fechaSessaoHibernate();
     }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.IntervaloDeConfianca_text.requestFocus();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void IntervaloDeConfianca_textKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IntervaloDeConfianca_textKeyTyped
+        this.IntervaloDeConfianca_text.setForeground(Color.BLACK);
+    }//GEN-LAST:event_IntervaloDeConfianca_textKeyTyped
 
     /**
      * @param args the command line arguments
@@ -166,6 +237,14 @@ public class TelaHome extends javax.swing.JFrame {
             }
         });
     }
+    
+    public int getIntervaloDeConfianca() {
+        return intervaloDeConfianca;
+    }
+
+    public void setIntervaloDeConfianca(int intervaloDeConfianca) {
+        this.intervaloDeConfianca = intervaloDeConfianca;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AgruparMenu;
@@ -178,8 +257,12 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem EstudoConsultar;
     private javax.swing.JMenuItem EstudoExcluir;
     private javax.swing.JMenu EstudoMenu;
+    private javax.swing.JLabel IntervaloDeConfianca_label;
+    private javax.swing.JTextField IntervaloDeConfianca_text;
     private javax.swing.JMenuItem SobreAjuda;
     private javax.swing.JMenuItem WikiAjuda;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

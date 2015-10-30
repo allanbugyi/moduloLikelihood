@@ -11,7 +11,7 @@ package moduloLikelihoodException;
  */
 public class ModuloLikelihoodException extends Exception{
     
-    public ModuloLikelihoodException(){
+    public ModuloLikelihoodException(String erro){
     }
     
     
