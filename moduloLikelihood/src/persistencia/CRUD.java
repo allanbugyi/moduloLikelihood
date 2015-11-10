@@ -8,7 +8,7 @@ package persistencia;
 import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import mapeamento.Estudoindividual;
+import mapeamento.EstudoIndividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -63,7 +63,7 @@ public class CRUD {
         }
     }
     
-    public static void executaCadastro(Estudoindividual estInd) throws ModuloLikelihoodException, NumberFormatException{
+    public static void executaCadastro(EstudoIndividual estInd) throws ModuloLikelihoodException, NumberFormatException{
         if( !estInd.getTitulo().equals("")     &&
              estInd.getVp() > 0                &&
              estInd.getFp() > 0                &&
@@ -93,7 +93,7 @@ public class CRUD {
         return queryResults;
     }
     
-    private static void transacaoCadastro(Estudoindividual estInd){
+    private static void transacaoCadastro(EstudoIndividual estInd){
         try{
            session.beginTransaction();
            session.save(estInd);

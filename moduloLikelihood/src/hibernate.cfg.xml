@@ -7,9 +7,8 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/metanalise?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root123</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <mapping resource="mapeamento/Estudoindividual.hbm.xml"/>
-    <mapping resource="mapeamento/Metanaliseestudoindividual.hbm.xml"/>
-    <mapping resource="mapeamento/Estudoglobal.hbm.xml"/>
+    <mapping resource="mapeamento/MetanaliseEstudoIndividual.hbm.xml"/>
+    <mapping resource="mapeamento/EstudoGlobal.hbm.xml"/>
+    <mapping resource="mapeamento/EstudoIndividual.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

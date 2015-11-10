@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="metanalise"/>
-  <table-filter match-name="metanaliseestudoindividual"/>
-  <table-filter match-name="estudoindividual"/>
-  <table-filter match-name="estudoglobal"/>
+  <table-filter match-name="estudo_global"/>
+  <table-filter match-name="estudo_individual"/>
+  <table-filter match-name="metanalise_estudo_individual"/>
 </hibernate-reverse-engineering>

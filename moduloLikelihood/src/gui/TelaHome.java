@@ -7,8 +7,6 @@ package gui;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import mapeamento.ModuloLikelihood;
-import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
  *

@@ -8,7 +8,9 @@ package gui;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import mapeamento.Estudoindividual;
+import mapeamento.EstudoIndividual;
+import mapeamento.MetanaliseEstudoIndividual;
+import estatistica.Metanalise;
 import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
@@ -17,13 +19,16 @@ import moduloLikelihoodException.ModuloLikelihoodException;
  */
 public class TelaEstudoIndividual extends javax.swing.JFrame {
 
+    private double percentualIntervaloDeConfianca;
+    
     /**
      * Creates new form TelaEstudoIndividual
      * @param textoBotao
      */
-    public TelaEstudoIndividual(String textoBotao, int intervaloDeConfianca) {
+    public TelaEstudoIndividual(String textoBotao, double percentualIntervaloDeConfianca) {
         try{
-            confereIntervaloDeConfianca(intervaloDeConfianca);
+            this.percentualIntervaloDeConfianca = percentualIntervaloDeConfianca;
+            this.confereIntervaloDeConfianca(percentualIntervaloDeConfianca);
             initComponents();
             this.EstudoButton_button.setText(textoBotao);
             if(textoBotao.equals("Consultar")){
@@ -416,9 +421,13 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     private void EstudoButton_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoButton_buttonActionPerformed
         if(this.EstudoButton_button.getText().equals("Cadastrar")){
             try {
-                persistencia.CRUD.executaCadastro(new Estudoindividual(null, this.EstudoTitulo_text.getText()  , this.EstudoDesc_textarea.getText(),
-                                                                       this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(),
-                                                                       this.EstudoTabela_VNtext.getText(), this.EstudoTabela_FNtext.getText(), new Metanalise()));
+                Metanalise.calcula(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(),  this.EstudoTabela_VNtext.getText(), 
+                                   this.EstudoTabela_FNtext.getText(),  this.percentualIntervaloDeConfianca);
+                
+                persistencia.CRUD.executaCadastro(new EstudoIndividual(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(), 
+                                                                       this.EstudoTabela_VNtext.getText(), this.EstudoTabela_FNtext.getText(), 
+                                                                       this.EstudoDesc_textarea.getText(), this.EstudoTitulo_text.getText()));
+                
                 this.atualizaDados_Tela();
                 JOptionPane.showMessageDialog(this.rootPane, "Cadastro efetuado com sucesso!");
             } catch (ModuloLikelihoodException ex) {
@@ -483,7 +492,7 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         });
     }
     
-    public void confereIntervaloDeConfianca(int intervaloDeConfianca) throws ModuloLikelihoodException {
+    public void confereIntervaloDeConfianca(double intervaloDeConfianca) throws ModuloLikelihoodException {
         if(intervaloDeConfianca <= 0){
             throw new ModuloLikelihoodException("Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
         }
@@ -500,9 +509,9 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     }
     
     private void atualizaDados_Tela(ArrayList listaDados){
-        Estudoindividual estInd = null;
+        EstudoIndividual estInd = null;
         for(Object o : listaDados){
-            estInd = (Estudoindividual) o;
+            estInd = (EstudoIndividual) o;
         }
         
         this.EstudoID_text.setText(estInd.getId().toString());
