@@ -9,8 +9,8 @@ package gui;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import mapeamento.EstudoIndividual;
-import mapeamento.MetanaliseEstudoIndividual;
 import estatistica.Metanalise;
+import mapeamento.MetanaliseEstudoIndividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
@@ -282,10 +282,9 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator11)
                             .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                            .addComponent(EstudoTabela_TotalP, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                .addComponent(EstudoTabela_TotalN, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                            .addComponent(EstudoTabela_TotalN)
+                            .addComponent(EstudoTabela_TotalP))
                         .addGap(76, 76, 76))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -421,15 +420,21 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     private void EstudoButton_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoButton_buttonActionPerformed
         if(this.EstudoButton_button.getText().equals("Cadastrar")){
             try {
-                Metanalise.calcula(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(),  this.EstudoTabela_VNtext.getText(), 
-                                   this.EstudoTabela_FNtext.getText(),  this.percentualIntervaloDeConfianca);
-                
-                persistencia.CRUD.executaCadastro(new EstudoIndividual(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(), 
-                                                                       this.EstudoTabela_VNtext.getText(), this.EstudoTabela_FNtext.getText(), 
-                                                                       this.EstudoDesc_textarea.getText(), this.EstudoTitulo_text.getText()));
-                
+                EstudoIndividual estInd = new EstudoIndividual(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(), 
+                                                                this.EstudoTabela_VNtext.getText(), this.EstudoTabela_FNtext.getText(), 
+                                                                this.EstudoDesc_textarea.getText(), this.EstudoTitulo_text.getText());
+                persistencia.CRUD.executaCadastro(estInd);
                 this.atualizaDados_Tela();
                 JOptionPane.showMessageDialog(this.rootPane, "Cadastro efetuado com sucesso!");
+                
+                Metanalise.resetaValores();
+                MetanaliseEstudoIndividual metanalise_estInd = this.efetuaMetanalise(estInd);
+                persistencia.CRUD.executaCadastro(metanalise_estInd);
+                
+                estInd.setMetanaliseEstudoIndividual(metanalise_estInd);
+                
+                persistencia.CRUD.executaAtualizacao(estInd);
+                
             } catch (ModuloLikelihoodException ex) {
                 JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
             } catch (NumberFormatException ex) {
@@ -498,8 +503,20 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         }
     }
     
+    private MetanaliseEstudoIndividual efetuaMetanalise(EstudoIndividual estInd){
+       Metanalise.calcula(estInd.getVp(), estInd.getFp(),  estInd.getVn(), estInd.getFn(), this.percentualIntervaloDeConfianca);
+       return new MetanaliseEstudoIndividual(Metanalise.getPercentualIntervaloConfianca(), Metanalise.getSensibilidade(), 
+                                             Metanalise.getEspecificidade(),  Metanalise.getLikelihoodPositiviva(), 
+                                             Metanalise.getLikelihoodNegativa(), Metanalise.getErroPadrao_lkPositiva(),
+                                             Metanalise.getErroPadrao_lkNegativa(), Metanalise.getIntervaloConfianca_LKPositiva_zNegativo(), 
+                                             Metanalise.getIntervaloConfianca_LKPositiva_zPositivo(), 
+                                             Metanalise.getIntervaloConfianca_LKNegativa_zNegativo(), 
+                                             Metanalise.getIntervaloConfianca_LKNegativa_zPositivo(),
+                                             Metanalise.getPeso_MH_LKPositiva(), Metanalise.getPeso_MH_LKNegativa());
+    }
+    
     private void atualizaDados_Tela(String textoBotao){
-        this.EstudoID_text.setEditable(true);
+        this.EstudoID_text.setEditable(false);
         this.EstudoDesc_textarea.setEditable(false);
         this.EstudoDesc_textarea.setBackground(getBackground());
         this.EstudoTabela_VPtext.setEditable(false);

@@ -5,10 +5,9 @@
  */
 package persistencia;
 
-import java.awt.List;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import mapeamento.EstudoIndividual;
+import mapeamento.MetanaliseEstudoIndividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -25,24 +24,10 @@ public class CRUD {
     private static SessionFactory factory = null;
     
     //MySQL queries
-    private static String QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_TITULO = "from mapeamento.Estudoindividual estInd where estInd.titulo like '", 
-                          QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_ID     = "from mapeamento.Estudoindividual estInd where estInd.id like '";
+    private static String QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_TITULO = "from mapeamento.EstudoIndividual estInd where estInd.titulo like '", 
+                          QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_ID     = "from mapeamento.EstudoIndividual estInd where estInd.id like '";
     
     public CRUD(){
-    }
-    
-    public static void criaSessaoHibernate(){
-        factory  = HibernateUtil.getSessionFactory();
-        session = factory.openSession();
-    }
-    
-    public static void fechaSessaoHibernate(){
-        try{
-         session.close();
-         factory.close();   
-        }catch(HibernateException he){
-            he.printStackTrace();
-        }
     }
     
     public static ArrayList executaConsulta(String id, String titulo) throws ModuloLikelihoodException{
@@ -77,6 +62,14 @@ public class CRUD {
         }
     }
     
+    public static void executaCadastro(MetanaliseEstudoIndividual metanalise_estInd){
+        transacaoCadastro(metanalise_estInd);
+    }
+    
+    public static void executaAtualizacao(EstudoIndividual estInd){
+        
+    }
+    
     private static ArrayList transacaoConsulta(String query){
         ArrayList queryResults = null;
         try{
@@ -104,4 +97,40 @@ public class CRUD {
         }
     }
     
+    private static void transacaoCadastro(MetanaliseEstudoIndividual metanalise_estInd){
+        try{
+           session.beginTransaction();
+           session.save(metanalise_estInd);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
+    
+    private static void transacaoAtualizacao(EstudoIndividual estInd){
+        try{
+           session.beginTransaction();
+           session.update(estInd);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
+    
+    
+    public static void criaSessaoHibernate(){
+        factory  = HibernateUtil.getSessionFactory();
+        session = factory.openSession();
+    }
+    
+    public static void fechaSessaoHibernate(){
+        try{
+         session.close();
+         factory.close();   
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
 }

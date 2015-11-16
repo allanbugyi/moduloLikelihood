@@ -1,5 +1,7 @@
 package gui;
 
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +13,7 @@ package gui;
  *
  * @author allan
  */
-public  class ModuloLikelihood {
+public class ModuloLikelihood {
     
     /**
      * @param args the command line arguments
@@ -22,8 +24,6 @@ public  class ModuloLikelihood {
         persistencia.CRUD.criaSessaoHibernate();
         
         new gui.TelaHome().setVisible(true);
-        
-        
     }
     
     public static void fechaSessaoHibernate(){

@@ -11,24 +11,22 @@ package estatistica;
  */
 public class Metanalise {
     
-    private static double verdadeiroPositivo, verdadeiroNegativo, falsoPositivo, falsoNegativo, sensibilidade, especificidade,
-                   likelihoodPositiviva, likelihoodNegativa, erroPadrao_lkPositiva, erroPadrao_lkNegativa,
-                   percentualIntervaloConfianca, z,
-                   intervaloConfianca_LKPositivo_zPositivo, intervaloConfianca_LKPositiva_zNegativo,
-                   intervaloConfianca_LKNegativa_zPositivo, intervaloConfianca_LKNegativa_zNegativo,
-                   peso_MH_LKPositiva, peso_MH_LKNegativa;
-
-    
+    private static double   verdadeiroPositivo, verdadeiroNegativo, falsoPositivo, falsoNegativo,
+                            sensibilidade, especificidade, likelihoodPositiviva, likelihoodNegativa,
+                            erroPadrao_lkPositiva, erroPadrao_lkNegativa, percentualIntervaloConfianca, z,
+                            intervaloConfianca_LKPositiva_zPositivo, intervaloConfianca_LKPositiva_zNegativo,
+                            intervaloConfianca_LKNegativa_zPositivo, intervaloConfianca_LKNegativa_zNegativo,
+                            peso_MH_LKPositiva, peso_MH_LKNegativa;
 
     public Metanalise(){
       
     }
     
-    public static void calcula(String verdadeiroPositivo, String verdadeiroNegativo, String falsoPositivo, String falsoNegativo, double percentualIntervaloConfianca){
-        Metanalise.verdadeiroPositivo           = Double.parseDouble(verdadeiroPositivo);
-        Metanalise.verdadeiroNegativo           = Double.parseDouble(verdadeiroNegativo);
-        Metanalise.falsoPositivo                = Double.parseDouble(falsoPositivo);
-        Metanalise.falsoNegativo                = Double.parseDouble(falsoNegativo);
+    public static void calcula(int verdadeiroPositivo, int falsoPositivo, int verdadeiroNegativo, int falsoNegativo, double percentualIntervaloConfianca){
+        Metanalise.verdadeiroPositivo           = verdadeiroPositivo;
+        Metanalise.verdadeiroNegativo           = verdadeiroNegativo;
+        Metanalise.falsoPositivo                = falsoPositivo;
+        Metanalise.falsoNegativo                = falsoNegativo;
         Metanalise.percentualIntervaloConfianca = percentualIntervaloConfianca;
         Metanalise.calculaSensibilidade();
         Metanalise.calculaEspecificidade();
@@ -38,7 +36,27 @@ public class Metanalise {
         Metanalise.calculaIntervalosConfianca();
         Metanalise.calculaPeso_MH_LKPositiva();
         Metanalise.calculaPeso_MH_LKNegativa();
-        //printa();
+    }
+    
+    public static void resetaValores(){
+        Metanalise.verdadeiroPositivo           = 0;
+        Metanalise.verdadeiroNegativo           = 0;
+        Metanalise.falsoPositivo                = 0;
+        Metanalise.falsoNegativo                = 0;
+        Metanalise.sensibilidade                = 0;
+        Metanalise.especificidade               = 0;
+        Metanalise.likelihoodPositiviva         = 0;
+        Metanalise.likelihoodNegativa           = 0;
+        Metanalise.erroPadrao_lkPositiva        = 0;
+        Metanalise.erroPadrao_lkNegativa        = 0;
+        Metanalise.percentualIntervaloConfianca = 0;
+        Metanalise.z                            = 0;
+        Metanalise.intervaloConfianca_LKPositiva_zPositivo = 0;
+        Metanalise.intervaloConfianca_LKPositiva_zNegativo = 0;
+        Metanalise.intervaloConfianca_LKNegativa_zPositivo = 0;
+        Metanalise.intervaloConfianca_LKNegativa_zNegativo = 0;
+        Metanalise.peso_MH_LKPositiva           = 0;
+        Metanalise.peso_MH_LKNegativa           = 0;
     }
     
     private static void calculaPeso_MH_LKPositiva(){
@@ -52,6 +70,7 @@ public class Metanalise {
     private static void calculaSensibilidade(){
         sensibilidade = verdadeiroPositivo/(verdadeiroPositivo+falsoNegativo);
     }
+    
     private static void calculaEspecificidade(){
         especificidade = verdadeiroNegativo/(falsoPositivo+verdadeiroNegativo);
     }
@@ -72,7 +91,7 @@ public class Metanalise {
     
     private static void calculaIntervalosConfianca(){
         intervaloConfianca_LKPositiva_zNegativo = likelihoodPositiviva * (Math.pow(Math.E, (- z * erroPadrao_lkPositiva)));
-        intervaloConfianca_LKPositivo_zPositivo = likelihoodPositiviva * (Math.pow(Math.E, (z * erroPadrao_lkPositiva)));
+        intervaloConfianca_LKPositiva_zPositivo = likelihoodPositiviva * (Math.pow(Math.E, (z * erroPadrao_lkPositiva)));
         
         intervaloConfianca_LKNegativa_zNegativo = likelihoodNegativa * (Math.pow(Math.E, (- z * erroPadrao_lkNegativa)));
         intervaloConfianca_LKNegativa_zPositivo = likelihoodNegativa * (Math.pow(Math.E, (z * erroPadrao_lkNegativa)));
@@ -92,7 +111,7 @@ public class Metanalise {
         System.out.println("Erro padrao Likelihood Negativa: " + erroPadrao_lkNegativa);
         System.out.println("Z: " + z);
         System.out.println("Intervalo de conf LK+ Z-: " + intervaloConfianca_LKPositiva_zNegativo);
-        System.out.println("Intervalo de conf LK+ Z+: " + intervaloConfianca_LKPositivo_zPositivo);
+        System.out.println("Intervalo de conf LK+ Z+: " + intervaloConfianca_LKPositiva_zPositivo);
         System.out.println("Intervalo de conf LK- Z-: " + intervaloConfianca_LKNegativa_zNegativo);
         System.out.println("Intervalo de conf LK- Z+: " + intervaloConfianca_LKNegativa_zPositivo);
         System.out.println("Peso Mantel Hansel Likelihood Positiva: " + peso_MH_LKPositiva);
@@ -123,7 +142,7 @@ public class Metanalise {
         return falsoNegativo;
     }
 
-    public static double getSensitividade() {
+    public static double getSensibilidade() {
         return sensibilidade;
     }
 
@@ -155,11 +174,11 @@ public class Metanalise {
         return z;
     }
 
-    public static double getIntervaloConfianca_LKPositivo_zPositivo() {
-        return intervaloConfianca_LKPositivo_zPositivo;
+    public static double getIntervaloConfianca_LKPositiva_zPositivo() {
+        return intervaloConfianca_LKPositiva_zPositivo;
     }
 
-    public static double getIntervaloConfianca_LKPositivo_zNegativo() {
+    public static double getIntervaloConfianca_LKPositiva_zNegativo() {
         return intervaloConfianca_LKPositiva_zNegativo;
     }
 
@@ -179,19 +198,19 @@ public class Metanalise {
         Metanalise.peso_MH_LKNegativa = peso_MH_LKNegativa;
     }
     
-     public static void setVerdadeiroPositivo(double verdadeiroPositivo) {
+     public static void setVerdadeiroPositivo(int verdadeiroPositivo) {
         Metanalise.verdadeiroPositivo = verdadeiroPositivo;
     }
 
-    public static void setVerdadeiroNegativo(double verdadeiroNegativo) {
+    public static void setVerdadeiroNegativo(int verdadeiroNegativo) {
         Metanalise.verdadeiroNegativo = verdadeiroNegativo;
     }
 
-    public static void setFalsoPositivo(double falsoPositivo) {
+    public static void setFalsoPositivo(int falsoPositivo) {
         Metanalise.falsoPositivo = falsoPositivo;
     }
 
-    public static void setFalsoNegativo(double falsoNegativo) {
+    public static void setFalsoNegativo(int falsoNegativo) {
         Metanalise.falsoNegativo = falsoNegativo;
     }
 
@@ -228,7 +247,7 @@ public class Metanalise {
     }
 
     public static void setIntervaloConfianca_LKPositivo_zPositivo(double intervaloConfianca_LKPositivo_zPositivo) {
-        Metanalise.intervaloConfianca_LKPositivo_zPositivo = intervaloConfianca_LKPositivo_zPositivo;
+        Metanalise.intervaloConfianca_LKPositiva_zPositivo = intervaloConfianca_LKPositivo_zPositivo;
     }
 
     public static void setIntervaloConfianca_LKPositivo_zNegativo(double intervaloConfianca_LKPositivo_zNegativo) {

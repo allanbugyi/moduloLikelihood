@@ -186,6 +186,7 @@ public class TelaHome extends javax.swing.JFrame {
     }//GEN-LAST:event_EstudoCadastrarActionPerformed
 
     private void EstudoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoConsultarActionPerformed
+        this.intervaloDeConfianca = Integer.parseInt(IntervaloDeConfianca_text.getText()); 
         new TelaEstudoIndividual("Consultar", this.intervaloDeConfianca).setVisible(true);
     }//GEN-LAST:event_EstudoConsultarActionPerformed
 
