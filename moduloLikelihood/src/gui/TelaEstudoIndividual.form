@@ -167,10 +167,10 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                   <Component id="EstudoTabela_label7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="46" max="32767" attributes="0"/>
                                   <Component id="jSeparator7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="EstudoTabela_TotalD" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="EstudoTabela_TotalD" min="-2" pref="108" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jSeparator10" min="-2" pref="122" max="-2" attributes="0"/>
@@ -184,8 +184,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="EstudoTabela_VPtext" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
-                                      <Component id="EstudoTabela_FNtext" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Component id="EstudoTabela_VPtext" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                      <Component id="EstudoTabela_FNtext" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                                       <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -199,36 +199,36 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jSeparator8" max="32767" attributes="0"/>
-                                              <Component id="EstudoTabela_VNtext" pref="108" max="32767" attributes="0"/>
+                                              <Component id="EstudoTabela_VNtext" min="-2" pref="108" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="8" max="32767" attributes="0"/>
+                                          <EmptySpace min="8" pref="11" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="EstudoTabela_FPtext" min="-2" pref="108" max="-2" attributes="0"/>
-                                                  <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                                  <Component id="EstudoTabela_TotalND" min="-2" pref="101" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="EstudoTabela_TotalND" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jSeparator11" max="32767" attributes="0"/>
-                              <Component id="jSeparator9" pref="108" max="32767" attributes="0"/>
-                              <Component id="EstudoTabela_TotalND1" alignment="0" pref="99" max="32767" attributes="0"/>
-                              <Component id="EstudoTabela_TotalN" alignment="0" max="32767" attributes="0"/>
-                              <Component id="EstudoTabela_TotalP" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jSeparator9" max="32767" attributes="0"/>
+                              <Component id="EstudoTabela_TotalND1" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                              <Component id="EstudoTabela_TotalN" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                              <Component id="EstudoTabela_TotalP" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                       </Group>

@@ -25,7 +25,8 @@ public class CRUD {
     
     //MySQL queries
     private static String QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_TITULO = "from mapeamento.EstudoIndividual estInd where estInd.titulo like '", 
-                          QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_ID     = "from mapeamento.EstudoIndividual estInd where estInd.id like '";
+                          QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_ID     = "from mapeamento.EstudoIndividual estInd where estInd.id like '",
+                          QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS    = "from mapeamento.EstudoIndividual";
     
     public CRUD(){
     }
@@ -48,6 +49,12 @@ public class CRUD {
         }
     }
     
+    public static ArrayList executaConsulta (){
+        ArrayList list = null;
+        list = transacaoConsulta(QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS);
+        return list;
+    }
+    
     public static void executaCadastro(EstudoIndividual estInd) throws ModuloLikelihoodException, NumberFormatException{
         if( !estInd.getTitulo().equals("")     &&
              estInd.getVp() > 0                &&
@@ -67,7 +74,7 @@ public class CRUD {
     }
     
     public static void executaAtualizacao(EstudoIndividual estInd){
-        
+        transacaoAtualizacao(estInd);
     }
     
     private static ArrayList transacaoConsulta(String query){
