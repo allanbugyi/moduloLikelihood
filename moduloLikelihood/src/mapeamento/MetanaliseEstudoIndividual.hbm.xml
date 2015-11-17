@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 16, 2015 3:03:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mapeamento.MetanaliseEstudoIndividual" table="metanalise_estudo_individual" catalog="metanalise" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="percentualIntervaloConfianca" type="double">
+            <column name="percentualIntervaloConfianca" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="sensibilidade" type="double">
+            <column name="sensibilidade" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="especificidade" type="double">
+            <column name="especificidade" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="likelihoodPositiviva" type="double">
+            <column name="likelihoodPositiviva" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="likelihoodNegativa" type="double">
+            <column name="likelihoodNegativa" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="erroPadraoLkPositiva" type="double">
+            <column name="erroPadrao_lkPositiva" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="erroPadraoLkNegativa" type="double">
+            <column name="erroPadrao_lkNegativa" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intervaloConfiancaLkpositivaZNegativo" type="double">
+            <column name="intervaloConfianca_LKPositiva_zNegativo" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intervaloConfiancaLkpositivoZPositivo" type="double">
+            <column name="intervaloConfianca_LKPositivo_zPositivo" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intervaloConfiancaLknegativaZNegativo" type="double">
+            <column name="intervaloConfianca_LKNegativa_zNegativo" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intervaloConfiancaLknegativaZPositivo" type="double">
+            <column name="intervaloConfianca_LKNegativa_zPositivo" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="pesoMhLkpositiva" type="double">
+            <column name="peso_MH_LKPositiva" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="pesoMhLknegativa" type="double">
+            <column name="peso_MH_LKNegativa" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="estudoIndividuals" table="estudo_individual" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idMetanaliseEstudoIndividual" />
+            </key>
+            <one-to-many class="mapeamento.EstudoIndividual" />
+        </set>
+    </class>
+</hibernate-mapping>

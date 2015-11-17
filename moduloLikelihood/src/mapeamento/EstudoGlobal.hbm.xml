@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 16, 2015 3:03:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mapeamento.EstudoGlobal" table="estudo_global" catalog="metanalise" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="lkpositiva" type="double">
+            <column name="LKPositiva" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="lknegativa" type="double">
+            <column name="LKNegativa" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="erroPadrao" type="double">
+            <column name="erroPadrao" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intervaloConfSup" type="double">
+            <column name="intervaloConfSup" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="intervaloConfInf" type="double">
+            <column name="intervaloConfInf" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="estudoIndividuals" table="estudo_individual" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idEstudoGlobal" />
+            </key>
+            <one-to-many class="mapeamento.EstudoIndividual" />
+        </set>
+    </class>
+</hibernate-mapping>
