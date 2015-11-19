@@ -5,9 +5,13 @@
  */
 package gui;
 
+import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mapeamento.EstudoIndividual;
+import mapeamento.MetanaliseEstudoIndividual;
+import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
  *
@@ -25,6 +29,14 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
     public TelaMetanaliseEstudoIndividual() {
         inicializaTela();
         initComponents();
+    }
+    
+    public TelaMetanaliseEstudoIndividual(int estInd_id) {
+        inicializaTela();
+        initComponents();
+        
+        this.MetEstInd_TabelaListagem_table.changeSelection((estInd_id-1), 0, true, false);
+        this.MetEstInd_TabelaListagem_tableMouseClicked(null);
     }
 
     /**
@@ -74,12 +86,15 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
         MetEstInd_PesoMHLKNegativa_text = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Metanálise Estudo Individual");
+        setResizable(false);
 
         EstudoTitulo_label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        MetEstInd_TabelaListagem_table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         MetEstInd_TabelaListagem_table.setModel(new DefaultTableModel(tableData, tableHeaders));
         MetEstInd_TabelaListagem_table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -105,11 +120,13 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
         MetEstInd_PercentualIntConf_label.setText("Percentual Intervalo de Confiança");
 
         MetEstInd_PercentualIntConf_text.setEditable(false);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         MetEstInd_LKNegativa_label.setText("Likelihood Negativa");
 
@@ -236,7 +253,7 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,40 +269,37 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                                     .addComponent(MetEstInd_PesoMHLKPositiva_label)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(MetEstInd_PesoMHLKPositiva_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(MetEstInd_ErroPadraoLKNegativa_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(MetEstInd_ErroPadraoLKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addComponent(MetEstInd_LKNegativa_label)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(MetEstInd_LKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel3Layout.createSequentialGroup()
-                                            .addComponent(MetEstInd_PesoMHLKNegativa_label)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(MetEstInd_PesoMHLKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(MetEstInd_LKNegativa_label)
+                                    .addComponent(MetEstInd_ErroPadraoLKNegativa_label))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(MetEstInd_LKNegativa_text, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                    .addComponent(MetEstInd_ErroPadraoLKNegativa_text))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(MetEstInd_PesoMHLKNegativa_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(MetEstInd_PesoMHLKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(9, 9, 9))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(MetEstInd_Sensibilidade_label)
-                        .addGap(42, 42, 42)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(MetEstInd_Sensibilidade_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(MetEstInd_Especificidade_label)
                         .addGap(41, 41, 41)
                         .addComponent(MetEstInd_Especificidade_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addComponent(jSeparator1)))
+                        .addContainerGap())))
+            .addComponent(jSeparator1)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,22 +320,20 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(MetEstInd_LKPositiva_label)
-                                .addComponent(MetEstInd_LKPositiva_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(MetEstInd_ErroPadraoLKPositiva_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(MetEstInd_ErroPadraoLKPositiva_label))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(MetEstInd_PesoMHLKPositiva_label)
-                                .addComponent(MetEstInd_PesoMHLKPositiva_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MetEstInd_LKPositiva_label)
+                            .addComponent(MetEstInd_LKPositiva_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MetEstInd_ErroPadraoLKPositiva_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MetEstInd_ErroPadraoLKPositiva_label))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(MetEstInd_PesoMHLKPositiva_label)
+                            .addComponent(MetEstInd_PesoMHLKPositiva_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MetEstInd_LKNegativa_label)
@@ -335,7 +347,8 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MetEstInd_PesoMHLKNegativa_label)
-                            .addComponent(MetEstInd_PesoMHLKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(MetEstInd_PesoMHLKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -346,12 +359,13 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(MetEstInd_PercentualIntConf_label)
-                        .addGap(18, 18, 18)
-                        .addComponent(MetEstInd_PercentualIntConf_text, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(54, 54, 54)
+                        .addComponent(MetEstInd_PercentualIntConf_text, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +376,7 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                     .addComponent(MetEstInd_PercentualIntConf_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(292, 292, 292))
+                .addGap(293, 293, 293))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -373,31 +387,43 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(383, 383, 383)
-                        .addComponent(EstudoTitulo_label))
+                        .addComponent(EstudoTitulo_label)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(EstudoTitulo_label)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void MetEstInd_TabelaListagem_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MetEstInd_TabelaListagem_tableMouseClicked
-        this.MetEstInd_TabelaListagem_table.findComponentAt(evt.getLocationOnScreen());
+        this.limpaTela();
+        ArrayList queryResults = null;
+        try {
+            queryResults = persistencia.CRUD.executaConsulta(String.valueOf(this.MetEstInd_TabelaListagem_table.getValueAt(this.MetEstInd_TabelaListagem_table.getSelectedRow(), 0)), null);
+            EstudoIndividual estInd = null;
+            if (!queryResults.isEmpty()) estInd = (EstudoIndividual) queryResults.get(0); this.atualizaTela(estInd.getMetanaliseEstudoIndividual(), estInd.getTitulo());
+            
+           // int estInd_titulo_labelLocation = 1219/this.EstudoTitulo_label.getSize().width;
+           // this.EstudoTitulo_label.setLocation(1, 1);
+        } catch (ModuloLikelihoodException ex) {
+            JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+        }
     }//GEN-LAST:event_MetEstInd_TabelaListagem_tableMouseClicked
 
     /**
@@ -448,6 +474,43 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
             this.oneRow.add(estInd.getDescricao());
             this.tableData.add(oneRow);
         }
+    }
+    
+    private void atualizaTela(MetanaliseEstudoIndividual metEstInd, String estInd_titulo){
+        this.EstudoTitulo_label.setText(estInd_titulo);
+        
+        if(!(metEstInd == null)){
+            this.MetEstInd_PercentualIntConf_text.setText(String.valueOf(metEstInd.getPercentualIntervaloConfianca()));
+            this.MetEstInd_Sensibilidade_text.setText(String.valueOf(metEstInd.getSensibilidade()));
+            this.MetEstInd_Especificidade_text.setText(String.valueOf(metEstInd.getEspecificidade()));
+            this.MetEstInd_LKPositiva_text.setText(String.valueOf(metEstInd.getLikelihoodPositiviva()));
+            this.MetEstInd_LKNegativa_text.setText(String.valueOf(metEstInd.getLikelihoodNegativa()));
+            this.MetEstInd_ErroPadraoLKPositiva_text.setText(String.valueOf(metEstInd.getErroPadraoLkPositiva()));
+            this.MetEstInd_ErroPadraoLKNegativa_text.setText(String.valueOf(metEstInd.getErroPadraoLkNegativa()));
+            this.MetEstInd_IntConfSupLKPositiva_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLkpositivoZPositivo()));
+            this.MetEstInd_IntConfInfLKPositiva_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLkpositivaZNegativo()));
+            this.MetEstInd_IntConfSupLKNegativa_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLknegativaZPositivo()));
+            this.MetEstInd_IntConfInfLKNegativa_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLknegativaZPositivo()));
+            this.MetEstInd_PesoMHLKPositiva_text.setText(String.valueOf(metEstInd.getPesoMhLkpositiva()));
+            this.MetEstInd_PesoMHLKNegativa_text.setText(String.valueOf(metEstInd.getPesoMhLknegativa()));
+        }
+    }
+    
+    private void limpaTela(){
+        this.MetEstInd_PercentualIntConf_text.setText("");
+            this.MetEstInd_Sensibilidade_text.setText("");
+            this.MetEstInd_Sensibilidade_text.setText("");
+            this.MetEstInd_Especificidade_text.setText("");
+            this.MetEstInd_LKPositiva_text.setText("");
+            this.MetEstInd_LKNegativa_text.setText("");
+            this.MetEstInd_ErroPadraoLKPositiva_text.setText("");
+            this.MetEstInd_ErroPadraoLKNegativa_text.setText("");
+            this.MetEstInd_IntConfSupLKPositiva_text.setText("");
+            this.MetEstInd_IntConfInfLKPositiva_text.setText("");
+            this.MetEstInd_IntConfSupLKNegativa_text.setText("");
+            this.MetEstInd_IntConfInfLKNegativa_text.setText("");
+            this.MetEstInd_PesoMHLKPositiva_text.setText("");
+            this.MetEstInd_PesoMHLKNegativa_text.setText("");
     }
             
 

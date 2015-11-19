@@ -104,6 +104,7 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estudo individual");
         setName("TelaEstudoIndividual"); // NOI18N
+        setResizable(false);
 
         EstudoDesc_label.setText("Descrição");
 
@@ -156,25 +157,30 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         EstudoTabela_label6.setText("Total");
 
         EstudoTabela_VPtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        EstudoTabela_VPtext.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                EstudoTabela_VPtextFocusLost(evt);
+            }
+        });
 
         EstudoTabela_FPtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EstudoTabela_FPtext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstudoTabela_FPtextActionPerformed(evt);
+        EstudoTabela_FPtext.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                EstudoTabela_FPtextFocusLost(evt);
             }
         });
 
         EstudoTabela_FNtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EstudoTabela_FNtext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstudoTabela_FNtextActionPerformed(evt);
+        EstudoTabela_FNtext.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                EstudoTabela_FNtextFocusLost(evt);
             }
         });
 
         EstudoTabela_VNtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        EstudoTabela_VNtext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstudoTabela_VNtextActionPerformed(evt);
+        EstudoTabela_VNtext.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                EstudoTabela_VNtextFocusLost(evt);
             }
         });
 
@@ -238,10 +244,10 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
                                 .addComponent(EstudoTabela_label7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(EstudoTabela_TotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(EstudoTabela_TotalD, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
@@ -252,8 +258,8 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                                     .addComponent(EstudoTabela_label3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(EstudoTabela_VPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(EstudoTabela_FNtext, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EstudoTabela_VPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(EstudoTabela_FNtext, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jSeparator1))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -264,27 +270,27 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jSeparator8)
-                                            .addComponent(EstudoTabela_VNtext, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(8, 11, Short.MAX_VALUE))
+                                            .addComponent(EstudoTabela_VNtext, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jSeparator5)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(EstudoTabela_FPtext, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                                .addGap(0, 1, Short.MAX_VALUE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(EstudoTabela_TotalND, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(EstudoTabela_TotalND, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator11)
-                            .addComponent(jSeparator9)
-                            .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EstudoTabela_TotalN, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(EstudoTabela_TotalP, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                            .addComponent(EstudoTabela_TotalN)
+                            .addComponent(EstudoTabela_TotalP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(76, 76, 76))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -405,20 +411,9 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EstudoTabela_FPtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoTabela_FPtextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EstudoTabela_FPtextActionPerformed
-
-    private void EstudoTabela_FNtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoTabela_FNtextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EstudoTabela_FNtextActionPerformed
-
-    private void EstudoTabela_VNtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoTabela_VNtextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EstudoTabela_VNtextActionPerformed
-
     private void EstudoButton_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoButton_buttonActionPerformed
         if(this.EstudoButton_button.getText().equals("Cadastrar")){
+            int id = 0;
             try {
                 EstudoIndividual estInd = new EstudoIndividual(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(), 
                                                                 this.EstudoTabela_VNtext.getText(), this.EstudoTabela_FNtext.getText(), 
@@ -435,11 +430,16 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                 
                 persistencia.CRUD.executaAtualizacao(estInd);
                 
+                id = estInd.getId();
+                
             } catch (ModuloLikelihoodException ex) {
                 JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this.rootPane, "O cadastro do Estudo Individual falhou. Verifique os valores fornecidos (título e tabela 2x2)");
             }
+            
+            new gui.TelaMetanaliseEstudoIndividual(id).setVisible(true);
+            
         } else {
             if(this.EstudoButton_button.getText().equals("Consultar")){
                 try {
@@ -461,6 +461,130 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     private void EstudoButton_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EstudoButton_buttonKeyPressed
 
     }//GEN-LAST:event_EstudoButton_buttonKeyPressed
+
+    private void EstudoTabela_VPtextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EstudoTabela_VPtextFocusLost
+        int totalHorizontal = 0, totalVertical = 0, totalND1 = 0;
+        if(!EstudoTabela_VPtext.getText().equals("")){
+           try{
+            if(!(EstudoTabela_FPtext.getText().equals(""))){
+                totalHorizontal = Integer.parseInt(this.EstudoTabela_VPtext.getText()) + Integer.parseInt(this.EstudoTabela_FPtext.getText());
+            } else {
+                totalHorizontal = Integer.parseInt(this.EstudoTabela_VPtext.getText());
+            }
+            
+            if(!(EstudoTabela_FNtext.getText().equals(""))){
+                totalVertical = Integer.parseInt(this.EstudoTabela_VPtext.getText()) + Integer.parseInt(this.EstudoTabela_FNtext.getText());
+            }else{
+                totalVertical = Integer.parseInt(this.EstudoTabela_VPtext.getText());
+            }
+            this.EstudoTabela_TotalP.setText(String.valueOf(totalHorizontal));
+            this.EstudoTabela_TotalD.setText(String.valueOf(totalVertical));
+            
+            if(!(this.EstudoTabela_TotalN.getText().equals(""))){
+                totalND1 = totalHorizontal + Integer.parseInt(this.EstudoTabela_TotalN.getText());
+                this.EstudoTabela_TotalND1.setText(String.valueOf(totalND1));
+            }else{
+                    this.EstudoTabela_TotalND1.setText(String.valueOf(totalHorizontal));
+            }
+            } catch (NumberFormatException ex)   {
+                JOptionPane.showMessageDialog(this.rootPane, "Por favor, insira um valor válido.");
+                this.EstudoTabela_VPtext.setText("");
+            } 
+        }
+    }//GEN-LAST:event_EstudoTabela_VPtextFocusLost
+
+    private void EstudoTabela_FPtextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EstudoTabela_FPtextFocusLost
+        int totalHorizontal = 0, totalVertical = 0, totalND1 = 0;
+        if(!EstudoTabela_FPtext.getText().equals("")){
+            try{
+                if(!(EstudoTabela_VPtext.getText().equals(""))){
+                    totalHorizontal = Integer.parseInt(this.EstudoTabela_FPtext.getText()) + Integer.parseInt(this.EstudoTabela_VPtext.getText());
+                } else {
+                    totalHorizontal = Integer.parseInt(this.EstudoTabela_FPtext.getText());
+                } 
+
+                if(!(EstudoTabela_VNtext.getText().equals(""))){
+                    totalVertical = Integer.parseInt(this.EstudoTabela_FPtext.getText()) + Integer.parseInt(this.EstudoTabela_VNtext.getText());
+                }else{
+                    totalVertical = Integer.parseInt(this.EstudoTabela_FPtext.getText());
+                }
+                this.EstudoTabela_TotalP.setText(String.valueOf(totalHorizontal));
+                this.EstudoTabela_TotalND.setText(String.valueOf(totalVertical));
+                
+                if(!(this.EstudoTabela_TotalN.getText().equals(""))){
+                    totalND1 = totalHorizontal + Integer.parseInt(this.EstudoTabela_TotalN.getText());
+                    this.EstudoTabela_TotalND1.setText(String.valueOf(totalND1));
+                }else{
+                    this.EstudoTabela_TotalND1.setText(String.valueOf(totalHorizontal));
+                }
+            } catch (NumberFormatException ex)   {
+                JOptionPane.showMessageDialog(this.rootPane, "Por favor, insira um valor válido.");
+                this.EstudoTabela_FPtext.setText("");
+            }
+        }
+    }//GEN-LAST:event_EstudoTabela_FPtextFocusLost
+
+    private void EstudoTabela_FNtextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EstudoTabela_FNtextFocusLost
+        int totalHorizontal = 0, totalVertical = 0, totalND1 = 0;
+        if(!EstudoTabela_FNtext.getText().equals("")){
+            try{
+                if(!(EstudoTabela_VNtext.getText().equals(""))){
+                    totalHorizontal = Integer.parseInt(this.EstudoTabela_FNtext.getText()) + Integer.parseInt(this.EstudoTabela_VNtext.getText());
+                } else {
+                    totalHorizontal = Integer.parseInt(this.EstudoTabela_FNtext.getText());
+                }
+
+                if(!(EstudoTabela_VPtext.getText().equals(""))){
+                    totalVertical = Integer.parseInt(this.EstudoTabela_FNtext.getText()) + Integer.parseInt(this.EstudoTabela_VPtext.getText());
+                }else{
+                    totalVertical = Integer.parseInt(this.EstudoTabela_FNtext.getText());
+                }
+                this.EstudoTabela_TotalN.setText(String.valueOf(totalHorizontal));
+                this.EstudoTabela_TotalD.setText(String.valueOf(totalVertical));
+                
+                if(!(this.EstudoTabela_TotalP.getText().equals(""))){
+                    totalND1 = totalHorizontal + Integer.parseInt(this.EstudoTabela_TotalP.getText());
+                    this.EstudoTabela_TotalND1.setText(String.valueOf(totalND1));
+                } else{
+                    this.EstudoTabela_TotalND1.setText(String.valueOf(totalHorizontal));
+                }
+            } catch (NumberFormatException ex)   {
+                JOptionPane.showMessageDialog(this.rootPane, "Por favor, insira um valor válido.");
+                this.EstudoTabela_FNtext.setText("");
+            }
+        }
+    }//GEN-LAST:event_EstudoTabela_FNtextFocusLost
+
+    private void EstudoTabela_VNtextFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_EstudoTabela_VNtextFocusLost
+        int totalHorizontal = 0, totalVertical = 0, totalND1 = 0;
+        if(!EstudoTabela_VNtext.getText().equals("")){
+            try{
+                if(!(EstudoTabela_FNtext.getText().equals(""))){
+                    totalHorizontal = Integer.parseInt(this.EstudoTabela_VNtext.getText()) + Integer.parseInt(this.EstudoTabela_FNtext.getText());
+                } else {
+                    totalHorizontal = Integer.parseInt(this.EstudoTabela_VNtext.getText());
+                }
+
+                if(!(EstudoTabela_FPtext.getText().equals(""))){
+                        totalVertical = Integer.parseInt(this.EstudoTabela_VNtext.getText()) + Integer.parseInt(this.EstudoTabela_FPtext.getText());
+                    }else{
+                        totalVertical = Integer.parseInt(this.EstudoTabela_VNtext.getText());
+                    }
+                this.EstudoTabela_TotalN.setText(String.valueOf(totalHorizontal));
+                this.EstudoTabela_TotalND.setText(String.valueOf(totalVertical));
+                
+                 if(!(this.EstudoTabela_TotalP.getText().equals(""))){
+                    totalND1 = totalHorizontal + Integer.parseInt(this.EstudoTabela_TotalP.getText());
+                    this.EstudoTabela_TotalND1.setText(String.valueOf(totalND1));
+                } else{
+                    this.EstudoTabela_TotalND1.setText(String.valueOf(totalHorizontal));
+                }
+            } catch (NumberFormatException ex)   {
+                JOptionPane.showMessageDialog(this.rootPane, "Por favor, insira um valor válido.");
+                this.EstudoTabela_VNtext.setText("");
+            }
+        }
+    }//GEN-LAST:event_EstudoTabela_VNtextFocusLost
 
     /**
      * @param args the command line arguments
@@ -516,7 +640,7 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     }
     
     private void atualizaDados_Tela(String textoBotao){
-        this.EstudoID_text.setEditable(false);
+        this.EstudoID_text.setEditable(true);
         this.EstudoDesc_textarea.setEditable(false);
         this.EstudoDesc_textarea.setBackground(getBackground());
         this.EstudoTabela_VPtext.setEditable(false);

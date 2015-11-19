@@ -36,16 +36,12 @@ public class TelaHome extends javax.swing.JFrame {
         IntervaloDeConfianca_label = new javax.swing.JLabel();
         IntervaloDeConfianca_text = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        botaoDeletar_TelaHome = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         EstudoMenu = new javax.swing.JMenu();
         EstudoCadastrar = new javax.swing.JMenuItem();
         EstudoConsultar = new javax.swing.JMenuItem();
-        AgruparMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        EstudoExcluir = new javax.swing.JMenuItem();
+        EstudoGlobalMenu = new javax.swing.JMenu();
         AjudaMenu = new javax.swing.JMenu();
         SobreAjuda = new javax.swing.JMenuItem();
 
@@ -97,41 +93,13 @@ public class TelaHome extends javax.swing.JFrame {
                     .addComponent(IntervaloDeConfianca_label)
                     .addComponent(IntervaloDeConfianca_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Estudos Individuais"));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Estudos Globais"));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
-        );
-
-        botaoDeletar_TelaHome.setText("Deletar");
-
-        EstudoMenu.setText("Individual");
+        EstudoMenu.setText("Estudos Individuais");
 
         EstudoCadastrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        EstudoCadastrar.setText("Cadastrar estudo");
+        EstudoCadastrar.setText("Cadastrar");
         EstudoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EstudoCadastrarActionPerformed(evt);
@@ -140,7 +108,7 @@ public class TelaHome extends javax.swing.JFrame {
         EstudoMenu.add(EstudoCadastrar);
 
         EstudoConsultar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        EstudoConsultar.setText("Consultar estudo");
+        EstudoConsultar.setText("Consultar");
         EstudoConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EstudoConsultarActionPerformed(evt);
@@ -148,23 +116,13 @@ public class TelaHome extends javax.swing.JFrame {
         });
         EstudoMenu.add(EstudoConsultar);
 
+        EstudoExcluir.setText("Excluir");
+        EstudoMenu.add(EstudoExcluir);
+
         jMenuBar1.add(EstudoMenu);
 
-        AgruparMenu.setText("Global");
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Agrupar estudos");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        AgruparMenu.add(jMenuItem1);
-
-        jMenuItem2.setText("Consultar estudos globais");
-        AgruparMenu.add(jMenuItem2);
-
-        jMenuBar1.add(AgruparMenu);
+        EstudoGlobalMenu.setText("Estudos Globais");
+        jMenuBar1.add(EstudoGlobalMenu);
 
         AjudaMenu.setText("Ajuda");
 
@@ -181,31 +139,15 @@ public class TelaHome extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botaoDeletar_TelaHome)
-                        .addGap(0, 382, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(485, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(botaoDeletar_TelaHome))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         pack();
@@ -238,10 +180,6 @@ public class TelaHome extends javax.swing.JFrame {
     private void IntervaloDeConfianca_textKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IntervaloDeConfianca_textKeyTyped
         this.IntervaloDeConfianca_text.setForeground(Color.BLACK);
     }//GEN-LAST:event_IntervaloDeConfianca_textKeyTyped
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,21 +225,17 @@ public class TelaHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu AgruparMenu;
     private javax.swing.JMenu AjudaMenu;
     private javax.swing.JMenuItem EstudoCadastrar;
     private javax.swing.JMenuItem EstudoConsultar;
+    private javax.swing.JMenuItem EstudoExcluir;
+    private javax.swing.JMenu EstudoGlobalMenu;
     private javax.swing.JMenu EstudoMenu;
     private javax.swing.JLabel IntervaloDeConfianca_label;
     private javax.swing.JTextField IntervaloDeConfianca_text;
     private javax.swing.JMenuItem SobreAjuda;
-    private javax.swing.JButton botaoDeletar_TelaHome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

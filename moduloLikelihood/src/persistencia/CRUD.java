@@ -49,10 +49,8 @@ public class CRUD {
         }
     }
     
-    public static ArrayList executaConsulta (){
-        ArrayList list = null;
-        list = transacaoConsulta(QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS);
-        return list;
+    public static ArrayList executaConsulta(){
+        return transacaoConsulta(QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS);
     }
     
     public static void executaCadastro(EstudoIndividual estInd) throws ModuloLikelihoodException, NumberFormatException{
