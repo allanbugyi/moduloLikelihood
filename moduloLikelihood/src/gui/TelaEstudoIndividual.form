@@ -229,7 +229,7 @@
                               <Component id="jSeparator9" pref="108" max="32767" attributes="0"/>
                               <Component id="EstudoTabela_TotalND1" alignment="0" pref="99" max="32767" attributes="0"/>
                               <Component id="EstudoTabela_TotalN" alignment="0" max="32767" attributes="0"/>
-                              <Component id="EstudoTabela_TotalP" alignment="0" max="-2" attributes="0"/>
+                              <Component id="EstudoTabela_TotalP" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                       </Group>

@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
  *
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class TelaHome extends javax.swing.JFrame {
 
-    private int intervaloDeConfianca;
+    private double intervaloDeConfianca;
     
     /**
      * Creates new form TelaHome
@@ -38,16 +39,18 @@ public class TelaHome extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         EstudoMenu = new javax.swing.JMenu();
-        EstudoCadastrar = new javax.swing.JMenuItem();
-        EstudoConsultar = new javax.swing.JMenuItem();
-        EstudoExcluir = new javax.swing.JMenuItem();
+        EstudoIndividual_Cadastrar = new javax.swing.JMenuItem();
+        EstudoIndividual_Consultar = new javax.swing.JMenuItem();
+        EstudoIndividual_Excluir = new javax.swing.JMenuItem();
         EstudoGlobalMenu = new javax.swing.JMenu();
+        EstudoGlobal_Cadastrar = new javax.swing.JMenuItem();
         AjudaMenu = new javax.swing.JMenu();
         SobreAjuda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SHELL PEARSON | Módulo Likelihood ");
         setName("TelaHome"); // NOI18N
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -98,35 +101,55 @@ public class TelaHome extends javax.swing.JFrame {
 
         EstudoMenu.setText("Estudos Individuais");
 
-        EstudoCadastrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        EstudoCadastrar.setText("Cadastrar");
-        EstudoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        EstudoIndividual_Cadastrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        EstudoIndividual_Cadastrar.setText("Cadastrar");
+        EstudoIndividual_Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstudoCadastrarActionPerformed(evt);
+                EstudoIndividual_CadastrarActionPerformed(evt);
             }
         });
-        EstudoMenu.add(EstudoCadastrar);
+        EstudoMenu.add(EstudoIndividual_Cadastrar);
 
-        EstudoConsultar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        EstudoConsultar.setText("Consultar");
-        EstudoConsultar.addActionListener(new java.awt.event.ActionListener() {
+        EstudoIndividual_Consultar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        EstudoIndividual_Consultar.setText("Consultar");
+        EstudoIndividual_Consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstudoConsultarActionPerformed(evt);
+                EstudoIndividual_ConsultarActionPerformed(evt);
             }
         });
-        EstudoMenu.add(EstudoConsultar);
+        EstudoMenu.add(EstudoIndividual_Consultar);
 
-        EstudoExcluir.setText("Excluir");
-        EstudoMenu.add(EstudoExcluir);
+        EstudoIndividual_Excluir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
+        EstudoIndividual_Excluir.setText("Listagem");
+        EstudoIndividual_Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstudoIndividual_ExcluirActionPerformed(evt);
+            }
+        });
+        EstudoMenu.add(EstudoIndividual_Excluir);
 
         jMenuBar1.add(EstudoMenu);
 
         EstudoGlobalMenu.setText("Estudos Globais");
+
+        EstudoGlobal_Cadastrar.setText("Cadastrar");
+        EstudoGlobal_Cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstudoGlobal_CadastrarActionPerformed(evt);
+            }
+        });
+        EstudoGlobalMenu.add(EstudoGlobal_Cadastrar);
+
         jMenuBar1.add(EstudoGlobalMenu);
 
         AjudaMenu.setText("Ajuda");
 
         SobreAjuda.setText("Sobre");
+        SobreAjuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SobreAjudaActionPerformed(evt);
+            }
+        });
         AjudaMenu.add(SobreAjuda);
 
         jMenuBar1.add(AjudaMenu);
@@ -153,21 +176,28 @@ public class TelaHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EstudoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoCadastrarActionPerformed
+    private void EstudoIndividual_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoIndividual_CadastrarActionPerformed
         
         try{
-            this.intervaloDeConfianca = Integer.parseInt(IntervaloDeConfianca_text.getText()); 
+            this.intervaloDeConfianca = Double.parseDouble(IntervaloDeConfianca_text.getText()); 
             new TelaEstudoIndividual("Cadastrar", this.intervaloDeConfianca).setVisible(true);
-        }
-        catch (NumberFormatException ex){
+        } catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(this.rootPane, "Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
+        } catch (ModuloLikelihoodException ex){
+            JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
         }
-    }//GEN-LAST:event_EstudoCadastrarActionPerformed
+    }//GEN-LAST:event_EstudoIndividual_CadastrarActionPerformed
 
-    private void EstudoConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoConsultarActionPerformed
-        this.intervaloDeConfianca = Integer.parseInt(IntervaloDeConfianca_text.getText()); 
-        new TelaEstudoIndividual("Consultar", this.intervaloDeConfianca).setVisible(true);
-    }//GEN-LAST:event_EstudoConsultarActionPerformed
+    private void EstudoIndividual_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoIndividual_ConsultarActionPerformed
+        try{        
+            this.intervaloDeConfianca = Double.parseDouble(IntervaloDeConfianca_text.getText()); 
+            new TelaEstudoIndividual("Consultar", this.intervaloDeConfianca).setVisible(true);
+        } catch (NumberFormatException ex){
+            JOptionPane.showMessageDialog(this.rootPane, "Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
+        } catch (ModuloLikelihoodException ex){
+            JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+        }
+    }//GEN-LAST:event_EstudoIndividual_ConsultarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         ModuloLikelihood.fechaSessaoHibernate();
@@ -180,6 +210,18 @@ public class TelaHome extends javax.swing.JFrame {
     private void IntervaloDeConfianca_textKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_IntervaloDeConfianca_textKeyTyped
         this.IntervaloDeConfianca_text.setForeground(Color.BLACK);
     }//GEN-LAST:event_IntervaloDeConfianca_textKeyTyped
+
+    private void SobreAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SobreAjudaActionPerformed
+        new gui.TelaAjudaSobre().setVisible(true);
+    }//GEN-LAST:event_SobreAjudaActionPerformed
+
+    private void EstudoIndividual_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoIndividual_ExcluirActionPerformed
+        new gui.TelaListagemEstudosIndividuais().setVisible(true);
+    }//GEN-LAST:event_EstudoIndividual_ExcluirActionPerformed
+
+    private void EstudoGlobal_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoGlobal_CadastrarActionPerformed
+        new gui.TelaEstudoGlobal().setVisible(true);
+    }//GEN-LAST:event_EstudoGlobal_CadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,20 +258,21 @@ public class TelaHome extends javax.swing.JFrame {
         });
     }
     
-    public int getIntervaloDeConfianca() {
+    public double getIntervaloDeConfianca() {
         return intervaloDeConfianca;
     }
 
-    public void setIntervaloDeConfianca(int intervaloDeConfianca) {
+    public void setIntervaloDeConfianca(double intervaloDeConfianca) {
         this.intervaloDeConfianca = intervaloDeConfianca;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu AjudaMenu;
-    private javax.swing.JMenuItem EstudoCadastrar;
-    private javax.swing.JMenuItem EstudoConsultar;
-    private javax.swing.JMenuItem EstudoExcluir;
     private javax.swing.JMenu EstudoGlobalMenu;
+    private javax.swing.JMenuItem EstudoGlobal_Cadastrar;
+    private javax.swing.JMenuItem EstudoIndividual_Cadastrar;
+    private javax.swing.JMenuItem EstudoIndividual_Consultar;
+    private javax.swing.JMenuItem EstudoIndividual_Excluir;
     private javax.swing.JMenu EstudoMenu;
     private javax.swing.JLabel IntervaloDeConfianca_label;
     private javax.swing.JTextField IntervaloDeConfianca_text;

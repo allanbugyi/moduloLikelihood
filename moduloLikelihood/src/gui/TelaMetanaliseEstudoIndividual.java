@@ -48,7 +48,6 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        EstudoTitulo_label = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MetEstInd_TabelaListagem_table = new javax.swing.JTable();
@@ -90,12 +89,11 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
         setTitle("Metanálise Estudo Individual");
         setResizable(false);
 
-        EstudoTitulo_label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         MetEstInd_TabelaListagem_table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         MetEstInd_TabelaListagem_table.setModel(new DefaultTableModel(tableData, tableHeaders));
+        this.MetEstInd_TabelaListagem_table.setSelectionMode(NORMAL);
         MetEstInd_TabelaListagem_table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 MetEstInd_TabelaListagem_tableMouseClicked(evt);
@@ -275,18 +273,20 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(MetEstInd_LKNegativa_label)
-                                    .addComponent(MetEstInd_ErroPadraoLKNegativa_label))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(MetEstInd_LKNegativa_text, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                    .addComponent(MetEstInd_ErroPadraoLKNegativa_text))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(MetEstInd_PesoMHLKNegativa_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MetEstInd_PesoMHLKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(MetEstInd_LKNegativa_label)
+                                            .addComponent(MetEstInd_ErroPadraoLKNegativa_label))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(MetEstInd_LKNegativa_text, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                            .addComponent(MetEstInd_ErroPadraoLKNegativa_text)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addComponent(MetEstInd_PesoMHLKNegativa_label)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(MetEstInd_PesoMHLKNegativa_text, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(9, 9, 9))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(MetEstInd_Sensibilidade_label)
@@ -387,7 +387,6 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(383, 383, 383)
-                        .addComponent(EstudoTitulo_label)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -400,7 +399,6 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(EstudoTitulo_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -477,7 +475,7 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
     }
     
     private void atualizaTela(MetanaliseEstudoIndividual metEstInd, String estInd_titulo){
-        this.EstudoTitulo_label.setText(estInd_titulo);
+        //this.EstudoTitulo_label.setText(estInd_titulo);
         
         if(!(metEstInd == null)){
             this.MetEstInd_PercentualIntConf_text.setText(String.valueOf(metEstInd.getPercentualIntervaloConfianca()));
@@ -497,7 +495,7 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
     }
     
     private void limpaTela(){
-        this.MetEstInd_PercentualIntConf_text.setText("");
+            this.MetEstInd_PercentualIntConf_text.setText("");
             this.MetEstInd_Sensibilidade_text.setText("");
             this.MetEstInd_Sensibilidade_text.setText("");
             this.MetEstInd_Especificidade_text.setText("");
@@ -515,7 +513,6 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
             
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel EstudoTitulo_label;
     private javax.swing.JLabel MetEstInd_ErroPadraoLKNegativa_label;
     private javax.swing.JTextField MetEstInd_ErroPadraoLKNegativa_text;
     private javax.swing.JLabel MetEstInd_ErroPadraoLKPositiva_label;

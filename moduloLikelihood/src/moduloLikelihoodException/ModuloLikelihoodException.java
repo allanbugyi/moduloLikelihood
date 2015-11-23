@@ -9,10 +9,16 @@ package moduloLikelihoodException;
  *
  * @author allan
  */
-public class ModuloLikelihoodException extends Exception{
+public final class ModuloLikelihoodException extends Exception{
+    
+    private String erro = null;
     
     public ModuloLikelihoodException(String erro){
+        this.erro = erro;
     }
     
-    
+    @Override
+    public String getMessage(){
+        return erro;
+    }
 }

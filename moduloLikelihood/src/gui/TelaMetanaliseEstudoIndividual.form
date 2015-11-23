@@ -123,6 +123,9 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MetEstInd_TabelaListagem_tableMouseClicked"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.MetEstInd_TabelaListagem_table.setSelectionMode(NORMAL);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
@@ -224,21 +227,25 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="MetEstInd_LKNegativa_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="MetEstInd_ErroPadraoLKNegativa_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="MetEstInd_LKNegativa_text" pref="225" max="32767" attributes="0"/>
-                                          <Component id="MetEstInd_ErroPadraoLKNegativa_text" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="MetEstInd_LKNegativa_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="MetEstInd_ErroPadraoLKNegativa_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="MetEstInd_LKNegativa_text" pref="225" max="32767" attributes="0"/>
+                                                  <Component id="MetEstInd_ErroPadraoLKNegativa_text" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="MetEstInd_PesoMHLKNegativa_label" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="MetEstInd_PesoMHLKNegativa_text" min="-2" pref="225" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="MetEstInd_PesoMHLKNegativa_label" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="MetEstInd_PesoMHLKNegativa_text" min="-2" pref="225" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>

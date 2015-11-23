@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import mapeamento.EstudoIndividual;
 import estatistica.Metanalise;
+import java.awt.Color;
 import mapeamento.MetanaliseEstudoIndividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
 
@@ -20,23 +21,24 @@ import moduloLikelihoodException.ModuloLikelihoodException;
 public class TelaEstudoIndividual extends javax.swing.JFrame {
 
     private double percentualIntervaloDeConfianca;
-    
+    private EstudoIndividual estInd = null;
+
     /**
      * Creates new form TelaEstudoIndividual
      * @param textoBotao
      */
-    public TelaEstudoIndividual(String textoBotao, double percentualIntervaloDeConfianca) {
-        try{
-            this.percentualIntervaloDeConfianca = percentualIntervaloDeConfianca;
-            this.confereIntervaloDeConfianca(percentualIntervaloDeConfianca);
-            initComponents();
-            this.EstudoButton_button.setText(textoBotao);
-            if(textoBotao.equals("Consultar")){
-                    atualizaDados_Tela(textoBotao);
-            }
-        } catch (ModuloLikelihoodException ex){
-            JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+    public TelaEstudoIndividual(String textoBotao, double percentualIntervaloDeConfianca) throws ModuloLikelihoodException{
+        this.confereIntervaloDeConfianca(percentualIntervaloDeConfianca);
+        initComponents();
+        this.EstudoButton_button.setText(textoBotao);
+        if(textoBotao.equals("Consultar")){
+            atualizaDados_Tela(textoBotao);
         }
+    }
+    
+    public TelaEstudoIndividual(ArrayList arrayList){
+        initComponents();
+        this.atualizaDados_Tela(arrayList);
     }
     
     public TelaEstudoIndividual(){
@@ -290,7 +292,7 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                             .addComponent(jSeparator9, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                             .addComponent(EstudoTabela_TotalND1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                             .addComponent(EstudoTabela_TotalN)
-                            .addComponent(EstudoTabela_TotalP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(EstudoTabela_TotalP))
                         .addGap(76, 76, 76))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -442,19 +444,32 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
             
         } else {
             if(this.EstudoButton_button.getText().equals("Consultar")){
-                try {
+                 try {
                     ArrayList resultadosConsulta = persistencia.CRUD.executaConsulta(EstudoID_text.getText(), EstudoTitulo_text.getText());
                     if(!resultadosConsulta.equals(null) && resultadosConsulta.size() > 0){
-                        this.atualizaDados_Tela(resultadosConsulta);
-                    } else {
+                    this.atualizaDados_Tela(resultadosConsulta);
+                    } else{
                         JOptionPane.showMessageDialog(this.rootPane, "Nenhum estudo individual encontrado");
                     }
                 } catch (ModuloLikelihoodException ex) {
                     JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
                 }
-            } else { // "Alterar"
+            } else{ //Alterar
+                this.estInd.setTitulo(this.EstudoTitulo_text.getText());
+                this.estInd.setDescricao(this.EstudoDesc_textarea.getText());
+                this.estInd.setVp(Integer.parseInt(this.EstudoTabela_VPtext.getText()));
+                this.estInd.setFp(Integer.parseInt(this.EstudoTabela_FPtext.getText()));
+                this.estInd.setVn(Integer.parseInt(this.EstudoTabela_VNtext.getText()));
+                this.estInd.setFn(Integer.parseInt(this.EstudoTabela_FNtext.getText()));
                 
+                persistencia.CRUD.executaAtualizacao(estInd);
+                this.atualizaDados_Tela();
+                this.estInd = null;
+                
+                JOptionPane.showMessageDialog(this.rootPane, "Alteração efetuada com sucesso!");
+                this.dispose();
             }
+           
         }
     }//GEN-LAST:event_EstudoButton_buttonActionPerformed
 
@@ -624,6 +639,8 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     public void confereIntervaloDeConfianca(double intervaloDeConfianca) throws ModuloLikelihoodException {
         if(intervaloDeConfianca <= 0){
             throw new ModuloLikelihoodException("Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
+        } else {
+             this.percentualIntervaloDeConfianca = percentualIntervaloDeConfianca;
         }
     }
     
@@ -650,20 +667,27 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
     }
     
     private void atualizaDados_Tela(ArrayList listaDados){
-        EstudoIndividual estInd = null;
-        for(Object o : listaDados){
-            estInd = (EstudoIndividual) o;
-        }
+        Object o = listaDados.get(0);
+        this.estInd = (EstudoIndividual) o;
         
         this.EstudoID_text.setText(estInd.getId().toString());
         this.EstudoID_text.setEditable(false);
         this.EstudoTitulo_text.setText(estInd.getTitulo());
         this.EstudoDesc_textarea.setText(estInd.getDescricao());
+        this.EstudoDesc_textarea.setEditable(true);
+        this.EstudoDesc_textarea.setBackground(Color.WHITE);
         this.EstudoTabela_VPtext.setText(String.valueOf(estInd.getVp()));
+        this.EstudoTabela_VPtext.setEditable(true);
         this.EstudoTabela_FPtext.setText(String.valueOf(estInd.getFp()));
+        this.EstudoTabela_FPtext.setEditable(true);
         this.EstudoTabela_VNtext.setText(String.valueOf(estInd.getVn()));
+        this.EstudoTabela_VNtext.setEditable(true);
         this.EstudoTabela_FNtext.setText(String.valueOf(estInd.getFn()));
-        
+        this.EstudoTabela_FNtext.setEditable(true);
+        this.EstudoTabela_FNtextFocusLost(null);
+        this.EstudoTabela_VNtextFocusLost(null);
+        this.EstudoTabela_VPtextFocusLost(null);
+        this.EstudoTabela_FPtextFocusLost(null);
         this.EstudoButton_button.setText("Alterar");
     }
     
@@ -676,8 +700,29 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         this.EstudoTabela_FPtext.setText("");
         this.EstudoTabela_VNtext.setText("");
         this.EstudoTabela_FNtext.setText("");
+        this.EstudoTabela_TotalD.setText("");
+        this.EstudoTabela_TotalN.setText("");
+        this.EstudoTabela_TotalND.setText("");
+        this.EstudoTabela_TotalP.setText("");
+        this.EstudoTabela_TotalND1.setText("");
         
         this.EstudoButton_button.setText("Cadastrar");
+    }
+    
+    public double getPercentualIntervaloDeConfianca() {
+        return percentualIntervaloDeConfianca;
+    }
+
+    public void setPercentualIntervaloDeConfianca(double percentualIntervaloDeConfianca) {
+        this.percentualIntervaloDeConfianca = percentualIntervaloDeConfianca;
+    }
+
+    public EstudoIndividual getEstInd() {
+        return estInd;
+    }
+
+    public void setEstInd(EstudoIndividual estInd) {
+        this.estInd = estInd;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
