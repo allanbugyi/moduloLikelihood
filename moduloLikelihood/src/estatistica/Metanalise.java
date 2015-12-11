@@ -5,6 +5,8 @@
  */
 package estatistica;
 
+import moduloLikelihoodException.ModuloLikelihoodException;
+
 /**
  *
  * @author allan
@@ -22,7 +24,7 @@ public class Metanalise {
       
     }
     
-    public static void calcula(int verdadeiroPositivo, int falsoPositivo, int verdadeiroNegativo, int falsoNegativo, double percentualIntervaloConfianca){
+    public static void calcula(int verdadeiroPositivo, int falsoPositivo, int verdadeiroNegativo, int falsoNegativo, double percentualIntervaloConfianca) throws ModuloLikelihoodException {
         Metanalise.verdadeiroPositivo           = verdadeiroPositivo;
         Metanalise.verdadeiroNegativo           = verdadeiroNegativo;
         Metanalise.falsoPositivo                = falsoPositivo;
@@ -59,34 +61,62 @@ public class Metanalise {
         Metanalise.peso_MH_LKNegativa           = 0;
     }
     
-    private static void calculaPeso_MH_LKPositiva(){
-        peso_MH_LKPositiva = (falsoPositivo*(verdadeiroPositivo+falsoNegativo))/(verdadeiroPositivo+falsoPositivo+verdadeiroNegativo+falsoNegativo);
+    private static void calculaPeso_MH_LKPositiva() throws moduloLikelihoodException.ModuloLikelihoodException {
+        if((verdadeiroPositivo+falsoPositivo+verdadeiroNegativo+falsoNegativo)!=0){
+             peso_MH_LKPositiva = (falsoPositivo*(verdadeiroPositivo+falsoNegativo))/(verdadeiroPositivo+falsoPositivo+verdadeiroNegativo+falsoNegativo);
+        }else{
+            throw new moduloLikelihoodException.ModuloLikelihoodException("Não foi possível realizar a metanálise, reveja os valores fornecidos na tabela 2x2. Divisão por zero impossível.");
+        }
     }
     
-    private static void calculaPeso_MH_LKNegativa(){
-        peso_MH_LKNegativa = (verdadeiroNegativo*(verdadeiroPositivo+falsoNegativo))/(verdadeiroPositivo+falsoPositivo+verdadeiroNegativo+falsoNegativo);
+    private static void calculaPeso_MH_LKNegativa() throws moduloLikelihoodException.ModuloLikelihoodException {
+        if((verdadeiroPositivo+falsoPositivo+verdadeiroNegativo+falsoNegativo)!=0){
+            peso_MH_LKNegativa = (verdadeiroNegativo*(verdadeiroPositivo+falsoNegativo))/(verdadeiroPositivo+falsoPositivo+verdadeiroNegativo+falsoNegativo);
+        }else{
+            throw new moduloLikelihoodException.ModuloLikelihoodException("Não foi possível realizar a metanálise, reveja os valores fornecidos na tabela 2x2. Divisão por zero impossível.");
+        }
     }
     
-    private static void calculaSensibilidade(){
-        sensibilidade = verdadeiroPositivo/(verdadeiroPositivo+falsoNegativo);
+    private static void calculaSensibilidade() throws moduloLikelihoodException.ModuloLikelihoodException {
+        if((verdadeiroPositivo+falsoNegativo)!=0){
+            sensibilidade = verdadeiroPositivo/(verdadeiroPositivo+falsoNegativo);
+        }else{
+            throw new moduloLikelihoodException.ModuloLikelihoodException("Não foi possível realizar a metanálise, reveja os valores fornecidos na tabela 2x2. Divisão por zero impossível.");
+        }
     }
     
-    private static void calculaEspecificidade(){
-        especificidade = verdadeiroNegativo/(falsoPositivo+verdadeiroNegativo);
+    private static void calculaEspecificidade() throws moduloLikelihoodException.ModuloLikelihoodException {
+        if((falsoPositivo+verdadeiroNegativo)!=0){
+            especificidade = verdadeiroNegativo/(falsoPositivo+verdadeiroNegativo);
+        }else{
+            throw new moduloLikelihoodException.ModuloLikelihoodException("Não foi possível realizar a metanálise, reveja os valores fornecidos na tabela 2x2. Divisão por zero impossível.");
+        }
     }
     
-    private static void calculaLikelihood(){
-        likelihoodPositiviva = sensibilidade/(1-especificidade);
-        likelihoodNegativa   = (1-sensibilidade)/especificidade;
+    private static void calculaLikelihood() throws moduloLikelihoodException.ModuloLikelihoodException {
+        if((1-especificidade)!=0 && especificidade !=0){
+            likelihoodPositiviva = sensibilidade/(1-especificidade);
+             likelihoodNegativa   = (1-sensibilidade)/especificidade;
+        }else{
+            throw new moduloLikelihoodException.ModuloLikelihoodException("Não foi possível realizar a metanálise, reveja os valores fornecidos na tabela 2x2. Divisão por zero impossível.");
+        }
     }
     
-    private static void calculaErroPadrao(){
-        erroPadrao_lkPositiva = Math.sqrt((1/verdadeiroPositivo) + (1/falsoPositivo) - (1/(verdadeiroPositivo+falsoNegativo))-(1/(falsoPositivo+verdadeiroNegativo)));
-        erroPadrao_lkNegativa = Math.sqrt((1/falsoNegativo) + (1/verdadeiroNegativo) - (1/(verdadeiroPositivo+falsoNegativo)) - (1/(falsoPositivo + verdadeiroNegativo)));
+    private static void calculaErroPadrao() throws moduloLikelihoodException.ModuloLikelihoodException {
+        if(verdadeiroPositivo != 0 || falsoPositivo != 0 || (verdadeiroPositivo+falsoNegativo) != 0 || (falsoPositivo+verdadeiroNegativo) != 0){
+            erroPadrao_lkPositiva = Math.sqrt((1/verdadeiroPositivo) + (1/falsoPositivo) - (1/(verdadeiroPositivo+falsoNegativo))-(1/(falsoPositivo+verdadeiroNegativo)));
+            erroPadrao_lkNegativa = Math.sqrt((1/falsoNegativo) + (1/verdadeiroNegativo) - (1/(verdadeiroPositivo+falsoNegativo)) - (1/(falsoPositivo + verdadeiroNegativo)));
+        }else{
+            throw new moduloLikelihoodException.ModuloLikelihoodException("Não foi possível realizar a metanálise, reveja os valores fornecidos na tabela 2x2. Divisão por zero impossível.");
+        }
     }
     
-    private static void calculaZ(){
-        z = Math.abs(StatUtil.getInvCDF(((1 - percentualIntervaloConfianca/100)/2), true));
+    private static void calculaZ() {
+        try{
+            z = Math.abs(StatUtil.getInvCDF(((1 - percentualIntervaloConfianca/100)/2), true));
+        }catch(Exception ex){
+            
+        }
     }
     
     private static void calculaIntervalosConfianca(){

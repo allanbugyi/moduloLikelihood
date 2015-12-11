@@ -44,6 +44,7 @@ public class TelaHome extends javax.swing.JFrame {
         EstudoIndividual_Excluir = new javax.swing.JMenuItem();
         EstudoGlobalMenu = new javax.swing.JMenu();
         EstudoGlobal_Cadastrar = new javax.swing.JMenuItem();
+        EstudoGlobal_Listagem = new javax.swing.JMenuItem();
         AjudaMenu = new javax.swing.JMenu();
         SobreAjuda = new javax.swing.JMenuItem();
 
@@ -96,7 +97,7 @@ public class TelaHome extends javax.swing.JFrame {
                     .addComponent(IntervaloDeConfianca_label)
                     .addComponent(IntervaloDeConfianca_text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         EstudoMenu.setText("Estudos Individuais");
@@ -140,6 +141,14 @@ public class TelaHome extends javax.swing.JFrame {
         });
         EstudoGlobalMenu.add(EstudoGlobal_Cadastrar);
 
+        EstudoGlobal_Listagem.setText("Listagem");
+        EstudoGlobal_Listagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstudoGlobal_ListagemActionPerformed(evt);
+            }
+        });
+        EstudoGlobalMenu.add(EstudoGlobal_Listagem);
+
         jMenuBar1.add(EstudoGlobalMenu);
 
         AjudaMenu.setText("Ajuda");
@@ -170,7 +179,7 @@ public class TelaHome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(509, Short.MAX_VALUE))
         );
 
         pack();
@@ -179,7 +188,7 @@ public class TelaHome extends javax.swing.JFrame {
     private void EstudoIndividual_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoIndividual_CadastrarActionPerformed
         
         try{
-            this.intervaloDeConfianca = Double.parseDouble(IntervaloDeConfianca_text.getText()); 
+            this.intervaloDeConfianca = Double.parseDouble(this.IntervaloDeConfianca_text.getText()); 
             new TelaEstudoIndividual("Cadastrar", this.intervaloDeConfianca).setVisible(true);
         } catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(this.rootPane, "Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
@@ -212,7 +221,7 @@ public class TelaHome extends javax.swing.JFrame {
     }//GEN-LAST:event_IntervaloDeConfianca_textKeyTyped
 
     private void SobreAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SobreAjudaActionPerformed
-        new gui.TelaAjudaSobre().setVisible(true);
+        //new gui.TelaAjudaSobre().setVisible(true);
     }//GEN-LAST:event_SobreAjudaActionPerformed
 
     private void EstudoIndividual_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoIndividual_ExcluirActionPerformed
@@ -222,6 +231,10 @@ public class TelaHome extends javax.swing.JFrame {
     private void EstudoGlobal_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoGlobal_CadastrarActionPerformed
         new gui.TelaEstudoGlobal().setVisible(true);
     }//GEN-LAST:event_EstudoGlobal_CadastrarActionPerformed
+
+    private void EstudoGlobal_ListagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoGlobal_ListagemActionPerformed
+       new gui.TelaListagemEstudosGlobais().setVisible(true);
+    }//GEN-LAST:event_EstudoGlobal_ListagemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,6 +283,7 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JMenu AjudaMenu;
     private javax.swing.JMenu EstudoGlobalMenu;
     private javax.swing.JMenuItem EstudoGlobal_Cadastrar;
+    private javax.swing.JMenuItem EstudoGlobal_Listagem;
     private javax.swing.JMenuItem EstudoIndividual_Cadastrar;
     private javax.swing.JMenuItem EstudoIndividual_Consultar;
     private javax.swing.JMenuItem EstudoIndividual_Excluir;

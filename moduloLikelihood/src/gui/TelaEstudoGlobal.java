@@ -5,9 +5,16 @@
  */
 package gui;
 
+import estatistica.Agrupados;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import mapeamento.EstudoGlobal;
 import mapeamento.EstudoIndividual;
+import moduloLikelihoodException.ModuloLikelihoodException;
 
 /**
  *
@@ -15,11 +22,15 @@ import mapeamento.EstudoIndividual;
  */
 public class TelaEstudoGlobal extends javax.swing.JFrame {
 
+    private  EstudoGlobal estGlob = null;
+    private  DefaultTableModel modeloTabelas = null;
+    private  ArrayList<EstudoIndividual> listaEstInd = new ArrayList<>(), listaEstudosIndividuais_remover = new ArrayList<>();
+    private  boolean primeiraExecucao = true;
+    
     /**
      * Creates new form TelaEstudoGlobal
      */
     public TelaEstudoGlobal() {
-        //this.inicializaTela();
         initComponents();
     }
 
@@ -36,6 +47,7 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         DefaultTableModel model = new DefaultTableModel(){
 
+            @Override
             public Class<?> getColumnClass(int column){
                 switch(column){
                     case 0:
@@ -50,33 +62,56 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
                     return String.class;
                 }
             }
+
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return column == 0;
+            }
         };
         listagemEstInd_tabela = new javax.swing.JTable();
-        model.addColumn("Select");
+        model.addColumn("");
         model.addColumn("ID");
         model.addColumn("Título");
         model.addColumn("Descrição");
-
-        model.addRow(new Object[0]);
 
         this.inicializaTela(model);
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         grupoEstudoGlobal_tabela = new javax.swing.JTable();
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+
+        modelo.addColumn("ID");
+        modelo.addColumn("Título");
+        modelo.addColumn("Descrição");
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        EstudoGlobalRetirar_button = new javax.swing.JButton();
+        EstudoGlobalLimpar_button = new javax.swing.JButton();
         estInd_insere_estGlob_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estudo Global");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Estudos Individuais", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         listagemEstInd_tabela.setModel(model);
-        this.listagemEstInd_tabela.setSelectionMode(NORMAL);
-        this.listagemEstInd_tabela.setColumnSelectionAllowed(false);
+        listagemEstInd_tabela.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        listagemEstInd_tabela.setFocusable(false);
+        listagemEstInd_tabela.setRowSelectionAllowed(false);
+        listagemEstInd_tabela.setShowHorizontalLines(false);
+        listagemEstInd_tabela.setShowVerticalLines(false);
+        listagemEstInd_tabela.getTableHeader().setReorderingAllowed(false);
+        this.listagemEstInd_tabela.getColumnModel().getColumn(3).setPreferredWidth(400);
         jScrollPane1.setViewportView(listagemEstInd_tabela);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -93,23 +128,35 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setPreferredSize(new java.awt.Dimension(513, 628));
 
-        grupoEstudoGlobal_tabela.setModel(new javax.swing.table.DefaultTableModel()
+        grupoEstudoGlobal_tabela.setModel(modelo
         );
-        this.listagemEstInd_tabela.setSelectionMode(NORMAL);
+        grupoEstudoGlobal_tabela.setShowHorizontalLines(false);
+        grupoEstudoGlobal_tabela.setShowVerticalLines(false);
+        grupoEstudoGlobal_tabela.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(grupoEstudoGlobal_tabela);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Estudo Global");
 
-        jButton1.setText("Retirar");
+        EstudoGlobalRetirar_button.setText("Retirar");
+        EstudoGlobalRetirar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstudoGlobalRetirar_buttonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Limpar");
+        EstudoGlobalLimpar_button.setText("Limpar");
+        EstudoGlobalLimpar_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstudoGlobalLimpar_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -118,14 +165,14 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(219, 219, 219)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(EstudoGlobalRetirar_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(EstudoGlobalLimpar_button)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -137,9 +184,9 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EstudoGlobalRetirar_button)
+                            .addComponent(EstudoGlobalLimpar_button))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -147,6 +194,11 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
 
         estInd_insere_estGlob_button.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         estInd_insere_estGlob_button.setText(">>");
+        estInd_insere_estGlob_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estInd_insere_estGlob_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,16 +220,218 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(77, 77, 77)
-                        .addComponent(estInd_insere_estGlob_button)))
+                        .addComponent(estInd_insere_estGlob_button, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void estInd_insere_estGlob_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estInd_insere_estGlob_buttonActionPerformed
+        if(this.listagemEstInd_tabela.getRowCount()>0){
+            DefaultTableModel model1 = (DefaultTableModel) this.listagemEstInd_tabela.getModel();
+            DefaultTableModel model2 = (DefaultTableModel) this.grupoEstudoGlobal_tabela.getModel();
+
+            boolean selecao;
+
+            try{
+                ArrayList<Object> listaEstInd_para_EstGlob = new ArrayList<>();
+
+                for(int i = 0; i<this.listagemEstInd_tabela.getRowCount(); i++){
+                    selecao = (boolean) this.listagemEstInd_tabela.getValueAt(i, 0);
+
+                    if(selecao){
+                         listaEstInd_para_EstGlob.add(this.listagemEstInd_tabela.getValueAt(i, 1));
+                    }
+                }
+
+                for(int i = 0; i<this.listagemEstInd_tabela.getRowCount(); i++){
+                    if(listaEstInd_para_EstGlob.contains(model1.getValueAt(i, 1))){
+                        Vector rows;
+                        rows = (Vector) model1.getDataVector().get(i);
+                        model2.addRow(new Object[] {rows.get(1), rows.get(2), rows.get(3)});
+
+                        ArrayList<EstudoIndividual> queryResults =  persistencia.CRUD.executaConsulta(rows.get(1).toString(), rows.get(2).toString());
+
+                        this.listaEstInd.add(queryResults.get(0));
+
+                        queryResults.clear();
+
+                        model1.removeRow(i);
+                        i = -1;
+                    }
+                }
+
+                Agrupados.resetaValores();
+                Agrupados.setEstudosIndividuais(this.listaEstInd);
+                Agrupados.calculaLikelihoodGlobal();
+
+                for(EstudoIndividual estInd : this.listaEstInd){
+                    if(primeiraExecucao){
+                        this.estGlob = new EstudoGlobal();
+                        this.estGlob.setLkpositiva(Agrupados.getLKPositiva());
+                        this.estGlob.setLknegativa(Agrupados.getLKPositiva());
+                        persistencia.CRUD.executaCadastro(this.estGlob);
+                        estInd.setEstudoGlobal(this.estGlob);   
+                        primeiraExecucao = false;
+                    } else{
+                        this.estGlob.setLkpositiva(Agrupados.getLKPositiva());
+                        this.estGlob.setLknegativa(Agrupados.getLKPositiva());
+                        estInd.setEstudoGlobal(this.estGlob); 
+                    }
+                    persistencia.CRUD.executaAtualizacao(estInd);
+                    persistencia.CRUD.executaAtualizacao(this.estGlob);
+                }
+                
+                if(primeiraExecucao==false)JOptionPane.showMessageDialog(this.rootPane, "Estudo global criado com sucesso");
+
+            } catch (ModuloLikelihoodException ex) {
+                JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(this.rootPane,"Cadastro do estudo global falhou. Por favor, tente novamente.");
+            }
+        }
+    }//GEN-LAST:event_estInd_insere_estGlob_buttonActionPerformed
+
+    private void EstudoGlobalRetirar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoGlobalRetirar_buttonActionPerformed
+        if(this.grupoEstudoGlobal_tabela.getSelectedRow() != -1){
+            if(this.grupoEstudoGlobal_tabela.getRowCount() > 0 && this.estGlob != null){
+                
+                this.modeloTabelas = (DefaultTableModel) this.grupoEstudoGlobal_tabela.getModel();
+                this.listaEstudosIndividuais_remover.clear();
+
+                for(EstudoIndividual estInd : this.listaEstInd){
+                    if(estInd.getId().toString().equals(String.valueOf(this.grupoEstudoGlobal_tabela.getValueAt(this.grupoEstudoGlobal_tabela.getSelectedRow(), 0)))){
+                        this.listaEstudosIndividuais_remover.add(estInd);
+                        estInd.setEstudoGlobal(null);
+                        persistencia.CRUD.executaAtualizacao(estInd);
+                        break;
+                    }
+                }
+
+                this.modeloTabelas = (DefaultTableModel) this.listagemEstInd_tabela.getModel();
+                Vector dataVector = modeloTabelas.getDataVector();
+                for(EstudoIndividual estInd : this.listaEstudosIndividuais_remover){
+                    if(this.listagemEstInd_tabela.getRowCount()>0){
+                        for(int i = 0; i<this.listagemEstInd_tabela.getRowCount(); i++){
+                            Vector row_before = (Vector) dataVector.get(i);
+
+                            if(i<(this.listagemEstInd_tabela.getRowCount()-1)){
+                                Vector row_after  = (Vector) dataVector.get(i+1);
+                               
+                                if((estInd.getId() > (Integer.parseInt(row_before.get(1).toString()))) && (estInd.getId() < (Integer.parseInt(row_after.get(1).toString())))){
+                                    modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                                    modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i+1);
+                                    break;
+                                } else{
+                                    if(estInd.getId() < (Integer.parseInt(row_before.get(1).toString()))){
+                                        modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                                        modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);
+                                        break;
+                                    }
+                                }
+                            } else{
+                                modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                                if(estInd.getId() < (Integer.parseInt(row_before.get(1).toString()))){
+                                    modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);     
+                                }
+                                break;
+                            }
+                        } 
+                    }else{
+                         modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                    }
+                    this.listaEstInd.remove(estInd);
+                }
+
+                this.modeloTabelas = (DefaultTableModel) this.grupoEstudoGlobal_tabela.getModel();
+                this.modeloTabelas.removeRow(this.grupoEstudoGlobal_tabela.getSelectedRow());
+
+                if(!this.listaEstInd.isEmpty()){
+                    Agrupados.resetaValores();
+                    Agrupados.setEstudosIndividuais(this.listaEstInd);
+                    Agrupados.calculaLikelihoodGlobal();
+                    
+                    this.estGlob.setLkpositiva(Agrupados.getLKPositiva());
+                    this.estGlob.setLknegativa(Agrupados.getLKPositiva());
+                } else{
+                    this.estGlob.setLkpositiva(0);
+                    this.estGlob.setLknegativa(0);
+                }
+                
+                persistencia.CRUD.executaAtualizacao(this.estGlob);
+            }
+        } else{
+              if(this.grupoEstudoGlobal_tabela.getRowCount() > 0){
+                  this.grupoEstudoGlobal_tabela.changeSelection(this.grupoEstudoGlobal_tabela.getRowCount()-1, 0, true, false);
+              }
+        }
+    }//GEN-LAST:event_EstudoGlobalRetirar_buttonActionPerformed
+
+    private void EstudoGlobalLimpar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoGlobalLimpar_buttonActionPerformed
+        if(this.grupoEstudoGlobal_tabela.getRowCount()>0){
+            this.modeloTabelas = (DefaultTableModel) this.grupoEstudoGlobal_tabela.getModel();
+           
+            for(EstudoIndividual estInd : this.listaEstInd){
+                estInd.setEstudoGlobal(null);
+                persistencia.CRUD.executaAtualizacao(estInd);
+                modeloTabelas.removeRow(0);
+            }
+            
+            this.modeloTabelas = (DefaultTableModel) this.listagemEstInd_tabela.getModel();
+            Vector dataVector = modeloTabelas.getDataVector();
+            for(EstudoIndividual estInd : this.listaEstInd){
+                if(this.listagemEstInd_tabela.getRowCount()>0){
+                    for(int i = 0; i<this.listagemEstInd_tabela.getRowCount(); i++){
+                        Vector row_before = (Vector) dataVector.get(i);
+
+                        if(i<(this.listagemEstInd_tabela.getRowCount()-1)){
+                            Vector row_after  = (Vector) dataVector.get(i+1);
+                            
+                            if((estInd.getId() > (Integer.parseInt(row_before.get(1).toString()))) && (estInd.getId() < (Integer.parseInt(row_after.get(1).toString())))){
+                                modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                                modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i+1);
+                                break;
+                            }else{
+                                    if(estInd.getId() < (Integer.parseInt(row_before.get(1).toString()))){
+                                        modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                                        modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);
+                                        break;
+                                    }
+                            }
+                        } else{
+                            modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                            if(estInd.getId() < (Integer.parseInt(row_before.get(1).toString()))){
+                                modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);     
+                            }
+                            break;
+                        }
+                    } 
+                }else{
+                    modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                }
+            }
+            
+            if(this.estGlob != null){
+                    this.estGlob.setLkpositiva(0);
+                    this.estGlob.setLknegativa(0);
+                    persistencia.CRUD.executaAtualizacao(this.estGlob);
+            }
+            
+            this.listaEstInd.clear();
+        }   
+    }//GEN-LAST:event_EstudoGlobalLimpar_buttonActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if(this.estGlob != null && (this.estGlob.getLknegativa()==0 && this.estGlob.getLkpositiva()==0 
+                                    /*&& this.estGlob.getErroPadrao()==0 && this.estGlob.getIntervaloConfInf()==0 && this.estGlob.getIntervaloConfSup()==0*/)){
+            persistencia.CRUD.executaExclusao(this.estGlob);
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -215,23 +469,26 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
     }
     
     private void inicializaTela(DefaultTableModel model) {
-        int contador = 0;
         for(Object obj : persistencia.CRUD.executaConsulta()){
             EstudoIndividual estInd = (EstudoIndividual) obj;
-            model.addRow(new Object[0]);
-            model.setValueAt(false, contador, 0);
-            model.setValueAt(estInd.getId(), contador, 1);
-            model.setValueAt(estInd.getTitulo(), contador, 1);
-            model.setValueAt(estInd.getDescricao(), contador, 2);
-            contador++;
+            try{
+                if(estInd.getEstudoGlobal() == null){
+                    if(estInd.getMetanaliseEstudoIndividual()!=null) model.addRow(new Object[] {false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                
+                    else throw new moduloLikelihoodException.ModuloLikelihoodException("Erro ao listar estudos individuais. O estudo " + estInd.getId() + 
+                                                                                   " possui erro em sua metanálise. Por favor, exclua-o e recadastre-o no sistema.");
+                }
+            } catch(moduloLikelihoodException.ModuloLikelihoodException ex){
+                JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+            }
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EstudoGlobalLimpar_button;
+    private javax.swing.JButton EstudoGlobalRetirar_button;
     private javax.swing.JButton estInd_insere_estGlob_button;
     private javax.swing.JTable grupoEstudoGlobal_tabela;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

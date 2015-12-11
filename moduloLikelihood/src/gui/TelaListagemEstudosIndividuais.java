@@ -7,9 +7,8 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import mapeamento.EstudoIndividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
 
@@ -54,98 +53,117 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
         setTitle("Listagem Estudos Individuais");
         setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Estudos Individuais", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        listagemEstInd_tabela.setModel(new javax.swing.table.DefaultTableModel(tableData, tableHeaders)
-        );
-        this.listagemEstInd_tabela.setSelectionMode(NORMAL);
-        jScrollPane1.setViewportView(listagemEstInd_tabela);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        listagemEstInd_deletar_button.setText("Deletar");
-
-        listagemEstInd_alterarDados_button.setText("Alterar dados");
-        listagemEstInd_alterarDados_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listagemEstInd_alterarDados_buttonActionPerformed(evt);
+        listagemEstInd_tabela.setModel(new javax.swing.table.DefaultTableModel(tableData, tableHeaders){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
             }
-        });
+        }
+    );
+    listagemEstInd_tabela.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+    listagemEstInd_tabela.setShowHorizontalLines(false);
+    listagemEstInd_tabela.setShowVerticalLines(false);
+    listagemEstInd_tabela.getTableHeader().setReorderingAllowed(false);
+    this.listagemEstInd_tabela.getColumnModel().getColumn(7).setPreferredWidth(130);
+    this.listagemEstInd_tabela.setSelectionMode(NORMAL);
+    jScrollPane1.setViewportView(listagemEstInd_tabela);
 
-        listagemEstInd_removerEstGlob_button.setText("Remover de Estudo Global");
-        listagemEstInd_removerEstGlob_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listagemEstInd_removerEstGlob_buttonActionPerformed(evt);
-            }
-        });
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    jPanel1Layout.setVerticalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
 
-        listagemEstInd_abrirMet_button.setText("Abrir Metanálise");
-        listagemEstInd_abrirMet_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listagemEstInd_abrirMet_buttonActionPerformed(evt);
-            }
-        });
+    listagemEstInd_deletar_button.setText("Deletar");
+    listagemEstInd_deletar_button.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            listagemEstInd_deletar_buttonActionPerformed(evt);
+        }
+    });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+    listagemEstInd_alterarDados_button.setText("Alterar dados");
+    listagemEstInd_alterarDados_button.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            listagemEstInd_alterarDados_buttonActionPerformed(evt);
+        }
+    });
+
+    listagemEstInd_removerEstGlob_button.setText("Remover de Estudo Global");
+    listagemEstInd_removerEstGlob_button.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            listagemEstInd_removerEstGlob_buttonActionPerformed(evt);
+        }
+    });
+
+    listagemEstInd_abrirMet_button.setText("Abrir Metanálise");
+    listagemEstInd_abrirMet_button.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            listagemEstInd_abrirMet_buttonActionPerformed(evt);
+        }
+    });
+
+    jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
+
+    jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(42, 42, 42)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator1)
+                .addComponent(jSeparator2))
+            .addContainerGap(60, Short.MAX_VALUE))
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
-                    .addComponent(jSeparator2))
-                .addContainerGap(58, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(98, 98, 98)
+                    .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(27, 27, 27)
+                    .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
 
-        pack();
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void listagemEstInd_abrirMet_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagemEstInd_abrirMet_buttonActionPerformed
        if(this.listagemEstInd_tabela.getSelectedRow() >= 0){
-           new gui.TelaMetanaliseEstudoIndividual(this.listagemEstInd_tabela.getSelectedRow()+1).setVisible(true);
+           new gui.TelaMetanaliseEstudoIndividual().setVisible(true);
        }
     }//GEN-LAST:event_listagemEstInd_abrirMet_buttonActionPerformed
 
@@ -162,8 +180,42 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
     }//GEN-LAST:event_listagemEstInd_alterarDados_buttonActionPerformed
 
     private void listagemEstInd_removerEstGlob_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagemEstInd_removerEstGlob_buttonActionPerformed
-        
+        if(this.listagemEstInd_tabela.getSelectedRow()>-1){
+            if(!(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 7).toString()).equals("-"))
+            {
+                try {
+                EstudoIndividual estInd = (EstudoIndividual) persistencia.CRUD.executaConsulta(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0).toString(), null).get(0);
+                if(estInd.getEstudoGlobal() != null) {
+                    estInd.setEstudoGlobal(null);
+                    persistencia.CRUD.executaAtualizacao(estInd);
+                    this.listagemEstInd_tabela.setValueAt("-", this.listagemEstInd_tabela.getSelectedRow(), 7);
+                }
+                
+                JOptionPane.showMessageDialog(this.rootPane, "Estudo global removido com sucesso", "Confirmação de alteração", JOptionPane.INFORMATION_MESSAGE);
+            } catch (ModuloLikelihoodException ex) {
+                JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+            }
+            }
+        }
     }//GEN-LAST:event_listagemEstInd_removerEstGlob_buttonActionPerformed
+
+    private void listagemEstInd_deletar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagemEstInd_deletar_buttonActionPerformed
+        if(this.listagemEstInd_tabela.getSelectedRow()>-1){
+            if(JOptionPane.YES_OPTION == (JOptionPane.showConfirmDialog(this.rootPane, "Tem certeza que deseja excluir o estudo " +
+                                                                        (this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0).toString())
+                                                                        +" ?" , "Confirmação de exclusão", JOptionPane.WARNING_MESSAGE))){
+                try {
+                    persistencia.CRUD.executaExclusao((EstudoIndividual)(persistencia.CRUD.executaConsulta(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0).toString(), null).get(0)));
+                } catch (ModuloLikelihoodException ex) {
+                    JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+                }
+                DefaultTableModel modeloTabela = (DefaultTableModel) this.listagemEstInd_tabela.getModel();
+                modeloTabela.removeRow(this.listagemEstInd_tabela.getSelectedRow());
+                }
+       }else{
+            this.listagemEstInd_tabela.changeSelection(0, 0, true, false);
+        }
+    }//GEN-LAST:event_listagemEstInd_deletar_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +260,7 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
         this.tableHeaders.add("FP");
         this.tableHeaders.add("VN");
         this.tableHeaders.add("FN");
+        this.tableHeaders.add("Estudo Global");
         
         for(Object obj : persistencia.CRUD.executaConsulta()){
             EstudoIndividual estInd = (EstudoIndividual) obj;
@@ -219,6 +272,11 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
             this.oneRow.add(estInd.getFp());
             this.oneRow.add(estInd.getVn());
             this.oneRow.add(estInd.getFn());
+            if(estInd.getEstudoGlobal()!=null){
+                this.oneRow.add(estInd.getEstudoGlobal().getId());
+            }else{
+                this.oneRow.add("-");
+            }
             this.tableData.add(oneRow);
         }
     }

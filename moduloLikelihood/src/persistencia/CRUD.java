@@ -6,6 +6,7 @@
 package persistencia;
 
 import java.util.ArrayList;
+import mapeamento.EstudoGlobal;
 import mapeamento.EstudoIndividual;
 import mapeamento.MetanaliseEstudoIndividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
@@ -26,7 +27,8 @@ public class CRUD {
     //MySQL queries
     private static String QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_TITULO = "from mapeamento.EstudoIndividual estInd where estInd.titulo like '", 
                           QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_ID     = "from mapeamento.EstudoIndividual estInd where estInd.id like '",
-                          QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS    = "from mapeamento.EstudoIndividual";
+                          QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS    = "from mapeamento.EstudoIndividual",
+                          QUERY_CONSULTA_TODOS_ESTUDOS_GLOBAIS        = "from mapeamento.EstudoGlobal";
     
     public CRUD(){
     }
@@ -53,6 +55,10 @@ public class CRUD {
         return transacaoConsulta(QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS);
     }
     
+    public static ArrayList executaConsulta(boolean EstudosGlobais){
+        return transacaoConsulta(QUERY_CONSULTA_TODOS_ESTUDOS_GLOBAIS);
+    }
+    
     public static void executaCadastro(EstudoIndividual estInd) throws ModuloLikelihoodException, NumberFormatException{
         if( !estInd.getTitulo().equals("")     &&
              estInd.getVp() > 0                &&
@@ -67,12 +73,32 @@ public class CRUD {
         }
     }
     
-    public static void executaCadastro(MetanaliseEstudoIndividual metanalise_estInd){
-        transacaoCadastro(metanalise_estInd);
+    public static void executaCadastro(MetanaliseEstudoIndividual metanalise_estInd) throws ModuloLikelihoodException{
+        if(metanalise_estInd!=null){
+            transacaoCadastro(metanalise_estInd);
+        }else{
+            throw new moduloLikelihoodException.ModuloLikelihoodException("O cadastro da metanálise falhou. Por favor, verifique os valores informados na tabela 2x2");
+        }
+    }
+    
+    public static void executaCadastro(EstudoGlobal estGlob){
+        transacaoCadastro(estGlob);
     }
     
     public static void executaAtualizacao(EstudoIndividual estInd){
         transacaoAtualizacao(estInd);
+    }
+    
+    public static void executaAtualizacao(EstudoGlobal estGlob){
+        transacaoAtualizacao(estGlob);
+    }
+    
+    public static void executaExclusao(EstudoGlobal estGlob){
+        transacaoExclusao(estGlob);
+    }
+    
+    public static void executaExclusao(EstudoIndividual estInd){
+        transacaoExclusao(estInd);
     }
     
     private static ArrayList transacaoConsulta(String query){
@@ -113,6 +139,17 @@ public class CRUD {
         }
     }
     
+    private static void transacaoCadastro(EstudoGlobal estGlob){
+        try{
+           session.beginTransaction();
+           session.save(estGlob);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
+    
     private static void transacaoAtualizacao(EstudoIndividual estInd){
         try{
            session.beginTransaction();
@@ -124,6 +161,38 @@ public class CRUD {
         }
     }
     
+    private static void transacaoAtualizacao(EstudoGlobal estGlob){
+        try{
+           session.beginTransaction();
+           session.update(estGlob);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
+    
+    private static void transacaoExclusao(EstudoGlobal estGlob){
+         try{
+           session.beginTransaction();
+           session.delete(estGlob);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
+    
+    private static void transacaoExclusao(EstudoIndividual estInd){
+        try{
+           session.beginTransaction();
+           session.delete(estInd);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
     
     public static void criaSessaoHibernate(){
         factory  = HibernateUtil.getSessionFactory();

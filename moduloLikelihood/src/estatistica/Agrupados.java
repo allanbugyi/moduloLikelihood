@@ -5,6 +5,7 @@
  */
 package estatistica;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import mapeamento.EstudoIndividual;
@@ -20,16 +21,12 @@ public class Agrupados {
     private static double erroPadrao;
     private static double intervaloConfSup;
     private static double intervaloConfInf;
-    private static Set<EstudoIndividual> estudosIndividuais;
+    private static ArrayList<EstudoIndividual> estudosIndividuais;
 
-    public Agrupados(HashSet<EstudoIndividual> estudosIndividuais){
-        Agrupados.estudosIndividuais = estudosIndividuais;
-        
-        Agrupados.resetaValores();
-        Agrupados.calculaLikelihoodGlobal();
+    public Agrupados(){
     }
     
-    private static void calculaLikelihoodGlobal(){
+    public static void calculaLikelihoodGlobal(){
         double somatorioPesosLKPositiva = 0, somatorioPesosPositiva = 0, somatorioPesosLKNegativa = 0, somatorioPesosNegativa = 0;
         
         for(EstudoIndividual estInd : Agrupados.estudosIndividuais){
@@ -97,11 +94,11 @@ public class Agrupados {
         Agrupados.intervaloConfInf = intervaloConfInf;
     }
 
-    public static Set<EstudoIndividual> getEstudosIndividuais() {
+    public static ArrayList<EstudoIndividual> getEstudosIndividuais() {
         return estudosIndividuais;
     }
 
-    public static void setEstudosIndividuais(Set<EstudoIndividual> estudosIndividuais) {
+    public static void setEstudosIndividuais(ArrayList<EstudoIndividual> estudosIndividuais) {
         Agrupados.estudosIndividuais = estudosIndividuais;
     }
     
