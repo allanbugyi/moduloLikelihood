@@ -6,6 +6,7 @@
 package gui;
 
 
+import estatistica.Agrupados;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import mapeamento.EstudoIndividual;
@@ -22,6 +23,8 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
 
     private double percentualIntervaloDeConfianca;
     private EstudoIndividual estInd = null;
+    private ArrayList<EstudoIndividual> resultadosConsulta = null;
+    private MetanaliseEstudoIndividual metanalise_estInd = null;
 
     /**
      * Creates new form TelaEstudoIndividual
@@ -36,9 +39,14 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         }
     }
     
-    public TelaEstudoIndividual(ArrayList arrayList){
+    public TelaEstudoIndividual(ArrayList<EstudoIndividual> listaEstInd){
         initComponents();
-        this.atualizaDados_Tela(arrayList);
+        this.atualizaDados_Tela(listaEstInd);
+    }
+    
+    public TelaEstudoIndividual(ArrayList<EstudoIndividual> listaEstInd, boolean vinculadoEstudoGlobal){
+        initComponents();
+        this.atualizaDados_Tela(listaEstInd);
     }
     
     public TelaEstudoIndividual(){
@@ -421,20 +429,20 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         if(this.EstudoButton_button.getText().equals("Cadastrar")){
             int id = 0;
             try {
-                EstudoIndividual estInd = new EstudoIndividual(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(), 
+               this.estInd = new EstudoIndividual(this.EstudoTabela_VPtext.getText(), this.EstudoTabela_FPtext.getText(), 
                                                                 this.EstudoTabela_VNtext.getText(), this.EstudoTabela_FNtext.getText(), 
                                                                 this.EstudoDesc_textarea.getText(), this.EstudoTitulo_text.getText());
-                persistencia.CRUD.executaCadastro(estInd);
-                JOptionPane.showMessageDialog(this.rootPane, "Cadastro do estudo individual "+estInd.getId()+" efetuado com sucesso!");
+                persistencia.CRUD.executaCadastro(this.estInd);
+                JOptionPane.showMessageDialog(this.rootPane, "Cadastro do estudo individual "+this.estInd.getId()+" efetuado com sucesso!");
                 this.atualizaDados_Tela();
                 
                 Metanalise.resetaValores();
-                MetanaliseEstudoIndividual metanalise_estInd = this.efetuaMetanalise(estInd);
-                persistencia.CRUD.executaCadastro(metanalise_estInd);
+                this.metanalise_estInd = this.efetuaMetanalise(this.estInd);
+                persistencia.CRUD.executaCadastro(this.metanalise_estInd);
                 
-                estInd.setMetanaliseEstudoIndividual(metanalise_estInd);
+                this.estInd.setMetanaliseEstudoIndividual(this.metanalise_estInd);
                 
-                persistencia.CRUD.executaAtualizacao(estInd);
+                persistencia.CRUD.executaAtualizacao(this.estInd);
                 
                 new gui.TelaMetanaliseEstudoIndividual().setVisible(true);
             } catch (ModuloLikelihoodException ex) {
@@ -445,7 +453,7 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         } else {
             if(this.EstudoButton_button.getText().equals("Consultar")){
                  try {
-                    ArrayList resultadosConsulta = persistencia.CRUD.executaConsulta(EstudoID_text.getText(), EstudoTitulo_text.getText());
+                    resultadosConsulta = persistencia.CRUD.executaConsulta(EstudoID_text.getText(), EstudoTitulo_text.getText());
                     if(!resultadosConsulta.equals(null) && resultadosConsulta.size() > 0){
                     this.atualizaDados_Tela(resultadosConsulta);
                     } else{
@@ -464,6 +472,15 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
                 
                 persistencia.CRUD.executaAtualizacao(estInd);
                 this.atualizaDados_Tela();
+                if(this.estInd.getEstudoGlobal() != null){
+                    this.resultadosConsulta = (ArrayList<EstudoIndividual>) persistencia.CRUD.executaConsulta(this.estInd.getEstudoGlobal().getId());
+                    Agrupados.resetaValores();
+                    Agrupados.setEstudosIndividuais(this.resultadosConsulta);
+                    Agrupados.calculaLikelihoodGlobal();
+                    this.estInd.getEstudoGlobal().setLkpositiva(Agrupados.getLKPositiva());
+                    this.estInd.getEstudoGlobal().setLknegativa(Agrupados.getLKNegativa());
+                    persistencia.CRUD.executaAtualizacao(this.estInd.getEstudoGlobal());
+                }
                 this.estInd = null;
                 
                 JOptionPane.showMessageDialog(this.rootPane, "Alteração efetuada com sucesso!");
@@ -632,8 +649,8 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         });
     }
     
-    public void confereIntervaloDeConfianca(double intervaloDeConfianca) throws ModuloLikelihoodException {
-        if(intervaloDeConfianca <= 0){
+    private void confereIntervaloDeConfianca(double intervaloDeConfianca) throws ModuloLikelihoodException {
+        if(intervaloDeConfianca < 0 || intervaloDeConfianca > 100){
             throw new ModuloLikelihoodException("Antes de cadastrar um novo estudo, por favor forneça um valor válido para o intervalo de confiança");
         } else {
              this.percentualIntervaloDeConfianca = intervaloDeConfianca;
@@ -667,9 +684,8 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
         this.EstudoTabela_VNtext.setEditable(false);
     }
     
-    private void atualizaDados_Tela(ArrayList listaDados){
-        Object o = listaDados.get(0);
-        this.estInd = (EstudoIndividual) o;
+    private void atualizaDados_Tela(ArrayList<EstudoIndividual> listaDados){
+        this.estInd = listaDados.get(0);
         
         this.EstudoID_text.setText(estInd.getId().toString());
         this.EstudoID_text.setEditable(false);

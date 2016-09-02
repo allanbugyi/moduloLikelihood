@@ -6,8 +6,6 @@
 package estatistica;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import mapeamento.EstudoIndividual;
 
 /**
@@ -39,6 +37,7 @@ public class Agrupados {
         
         Agrupados.LKPositiva = somatorioPesosLKPositiva/somatorioPesosPositiva;
         Agrupados.LKNegativa = somatorioPesosLKNegativa/somatorioPesosNegativa;
+        printa();
     }
     
     public static void resetaValores(){
@@ -51,7 +50,7 @@ public class Agrupados {
     
     public static void printa(){
          System.out.println("Likelihood global positiva: " + Agrupados.LKPositiva);
-         System.out.println("Likelihood global positiva: " + Agrupados.LKNegativa);
+         System.out.println("Likelihood global negativa: " + Agrupados.LKNegativa);
      }
      
     public static double getLKPositiva() {

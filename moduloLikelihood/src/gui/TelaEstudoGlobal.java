@@ -7,8 +7,6 @@ package gui;
 
 import estatistica.Agrupados;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +24,7 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
     private  DefaultTableModel modeloTabelas = null;
     private  ArrayList<EstudoIndividual> listaEstInd = new ArrayList<>(), listaEstudosIndividuais_remover = new ArrayList<>();
     private  boolean primeiraExecucao = true;
+    private Vector rows = null;
     
     /**
      * Creates new form TelaEstudoGlobal
@@ -251,11 +250,10 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
 
                 for(int i = 0; i<this.listagemEstInd_tabela.getRowCount(); i++){
                     if(listaEstInd_para_EstGlob.contains(model1.getValueAt(i, 1))){
-                        Vector rows;
-                        rows = (Vector) model1.getDataVector().get(i);
-                        model2.addRow(new Object[] {rows.get(1), rows.get(2), rows.get(3)});
+                        this.rows = (Vector) model1.getDataVector().get(i);
+                        model2.addRow(new Object[] {this.rows.get(1), this.rows.get(2), this.rows.get(3)});
 
-                        ArrayList<EstudoIndividual> queryResults =  persistencia.CRUD.executaConsulta(rows.get(1).toString(), rows.get(2).toString());
+                        ArrayList<EstudoIndividual> queryResults =  persistencia.CRUD.executaConsulta(this.rows.get(1).toString(), this.rows.get(2).toString());
 
                         this.listaEstInd.add(queryResults.get(0));
 
@@ -270,21 +268,21 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
                 Agrupados.setEstudosIndividuais(this.listaEstInd);
                 Agrupados.calculaLikelihoodGlobal();
 
-                for(EstudoIndividual estInd : this.listaEstInd){
-                    if(primeiraExecucao){
+                if(!primeiraExecucao){
+                        this.estGlob.setLkpositiva(Agrupados.getLKPositiva());
+                        this.estGlob.setLknegativa(Agrupados.getLKNegativa());
+                        persistencia.CRUD.executaAtualizacao(this.estGlob);
+                } else{
                         this.estGlob = new EstudoGlobal();
                         this.estGlob.setLkpositiva(Agrupados.getLKPositiva());
-                        this.estGlob.setLknegativa(Agrupados.getLKPositiva());
+                        this.estGlob.setLknegativa(Agrupados.getLKNegativa());
                         persistencia.CRUD.executaCadastro(this.estGlob);
-                        estInd.setEstudoGlobal(this.estGlob);   
                         primeiraExecucao = false;
-                    } else{
-                        this.estGlob.setLkpositiva(Agrupados.getLKPositiva());
-                        this.estGlob.setLknegativa(Agrupados.getLKPositiva());
-                        estInd.setEstudoGlobal(this.estGlob); 
-                    }
-                    persistencia.CRUD.executaAtualizacao(estInd);
-                    persistencia.CRUD.executaAtualizacao(this.estGlob);
+                }
+                
+                for(EstudoIndividual estInd : this.listaEstInd){
+                     estInd.setEstudoGlobal(this.estGlob);  
+                     persistencia.CRUD.executaAtualizacao(estInd);
                 }
                 
                 if(primeiraExecucao==false)JOptionPane.showMessageDialog(this.rootPane, "Estudo global criado com sucesso");
@@ -357,7 +355,7 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
                     Agrupados.calculaLikelihoodGlobal();
                     
                     this.estGlob.setLkpositiva(Agrupados.getLKPositiva());
-                    this.estGlob.setLknegativa(Agrupados.getLKPositiva());
+                    this.estGlob.setLknegativa(Agrupados.getLKNegativa());
                 } else{
                     this.estGlob.setLkpositiva(0);
                     this.estGlob.setLknegativa(0);
@@ -383,7 +381,7 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
             }
             
             this.modeloTabelas = (DefaultTableModel) this.listagemEstInd_tabela.getModel();
-            Vector dataVector = modeloTabelas.getDataVector();
+            Vector dataVector = this.modeloTabelas.getDataVector();
             for(EstudoIndividual estInd : this.listaEstInd){
                 if(this.listagemEstInd_tabela.getRowCount()>0){
                     for(int i = 0; i<this.listagemEstInd_tabela.getRowCount(); i++){
@@ -393,26 +391,26 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
                             Vector row_after  = (Vector) dataVector.get(i+1);
                             
                             if((estInd.getId() > (Integer.parseInt(row_before.get(1).toString()))) && (estInd.getId() < (Integer.parseInt(row_after.get(1).toString())))){
-                                modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
-                                modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i+1);
+                                this.modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                                this.modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i+1);
                                 break;
                             }else{
                                     if(estInd.getId() < (Integer.parseInt(row_before.get(1).toString()))){
-                                        modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
-                                        modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);
+                                        this.modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                                        this.modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);
                                         break;
                                     }
                             }
                         } else{
-                            modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                            this.modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
                             if(estInd.getId() < (Integer.parseInt(row_before.get(1).toString()))){
-                                modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);     
+                                this.modeloTabelas.moveRow((this.listagemEstInd_tabela.getRowCount()-1), (this.listagemEstInd_tabela.getRowCount()-1), i);     
                             }
                             break;
                         }
                     } 
                 }else{
-                    modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
+                    this.modeloTabelas.addRow(new Object[]{false, estInd.getId(), estInd.getTitulo(), estInd.getDescricao()});
                 }
             }
             

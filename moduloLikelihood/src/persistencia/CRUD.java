@@ -24,11 +24,12 @@ public class CRUD {
     private static Session session = null;
     private static SessionFactory factory = null;
     
-    //MySQL queries
+    //SQL queries
     private static String QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_TITULO = "from mapeamento.EstudoIndividual estInd where estInd.titulo like '", 
                           QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_ID     = "from mapeamento.EstudoIndividual estInd where estInd.id like '",
                           QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS    = "from mapeamento.EstudoIndividual",
-                          QUERY_CONSULTA_TODOS_ESTUDOS_GLOBAIS        = "from mapeamento.EstudoGlobal";
+                          QUERY_CONSULTA_TODOS_ESTUDOS_GLOBAIS        = "from mapeamento.EstudoGlobal",
+                          QUERY_CONSULTA__TODOS_ESTUDOS_INDIVIDUAIS_POR_ESTUDO_GLOBAL = "from mapeamento.EstudoIndividual where estudoGlobal=";
     
     public CRUD(){
     }
@@ -53,6 +54,10 @@ public class CRUD {
     
     public static ArrayList executaConsulta(){
         return transacaoConsulta(QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS);
+    }
+    
+    public static ArrayList executaConsulta(int estGlobID){
+        return transacaoConsulta(estGlobID);
     }
     
     public static ArrayList executaConsulta(boolean EstudosGlobais){
@@ -115,6 +120,22 @@ public class CRUD {
             he.printStackTrace();
         }
         return queryResults;
+    }
+    
+    private static ArrayList transacaoConsulta(int estGlobID){
+        ArrayList queryResult = null;
+        try{
+            session.beginTransaction();
+            
+            Query q = session.createQuery(QUERY_CONSULTA__TODOS_ESTUDOS_INDIVIDUAIS_POR_ESTUDO_GLOBAL + estGlobID);
+            queryResult = (ArrayList) q.list();
+            
+            session.getTransaction().commit();
+            
+        } catch(HibernateException he){
+            he.printStackTrace();
+        }
+        return queryResult;
     }
     
     private static void transacaoCadastro(EstudoIndividual estInd){

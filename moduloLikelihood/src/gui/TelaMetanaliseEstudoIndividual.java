@@ -5,7 +5,6 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -36,6 +35,14 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
         initComponents();
         
         this.MetEstInd_TabelaListagem_table.changeSelection(this.MetEstInd_TabelaListagem_table.getRowCount()-1, 0, true, false);
+        this.MetEstInd_TabelaListagem_tableMouseClicked(null);
+    }
+    
+    public TelaMetanaliseEstudoIndividual(int rowToSelect){
+        inicializaTela();
+        initComponents();
+        
+        this.MetEstInd_TabelaListagem_table.changeSelection(rowToSelect, 0, true, false);
         this.MetEstInd_TabelaListagem_tableMouseClicked(null);
     }
 
@@ -483,7 +490,8 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
         try {
             queryResults = persistencia.CRUD.executaConsulta(String.valueOf(this.MetEstInd_TabelaListagem_table.getValueAt(this.MetEstInd_TabelaListagem_table.getSelectedRow(), 0)), null);
             EstudoIndividual estInd = null;
-            if (!queryResults.isEmpty()) estInd = (EstudoIndividual) queryResults.get(0); this.atualizaTela(estInd.getMetanaliseEstudoIndividual(), estInd.getTitulo());
+            if (!queryResults.isEmpty()) estInd = (EstudoIndividual) queryResults.get(0); 
+            this.atualizaTela(estInd.getMetanaliseEstudoIndividual(), estInd.getTitulo());
             
             
            // int estInd_titulo_labelLocation = 1219/this.EstudoTitulo_label.getSize().width;
@@ -557,7 +565,7 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
             this.MetEstInd_IntConfSupLKPositiva_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLkpositivoZPositivo()));
             this.MetEstInd_IntConfInfLKPositiva_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLkpositivaZNegativo()));
             this.MetEstInd_IntConfSupLKNegativa_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLknegativaZPositivo()));
-            this.MetEstInd_IntConfInfLKNegativa_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLknegativaZPositivo()));
+            this.MetEstInd_IntConfInfLKNegativa_text.setText(String.valueOf(metEstInd.getIntervaloConfiancaLknegativaZNegativo()));
             this.MetEstInd_PesoMHLKPositiva_text.setText(String.valueOf(metEstInd.getPesoMhLkpositiva()));
             this.MetEstInd_PesoMHLKNegativa_text.setText(String.valueOf(metEstInd.getPesoMhLknegativa()));
         }
