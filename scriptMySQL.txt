@@ -1,0 +1,45 @@
+CREATE DATABASE metanalise;
+
+USE metanalise;
+
+CREATE TABLE estudo_global (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	LKPositiva DOUBLE NOT NULL,
+	LKNegativa DOUBLE NOT NULL,
+	erroPadrao DOUBLE NOT NULL,
+	intervaloConfSup DOUBLE NOT NULL,
+	intervaloConfInf DOUBLE NOT NULL
+);
+
+CREATE TABLE metanalise_estudo_individual (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	percentualIntervaloConfianca DOUBLE NOT NULL,
+	sensibilidade DOUBLE NOT NULL,
+	especificidade DOUBLE NOT NULL,
+	likelihoodPositiva DOUBLE NOT NULL,
+	likelihoodNegativa DOUBLE NOT NULL,
+	erroPadrao_lkPositiva DOUBLE NOT NULL,
+	erroPadrao_lkNegativa DOUBLE NOT NULL,
+	intervaloConfianca_LKPositiva_zNegativo DOUBLE NOT NULL,
+	intervaloConfianca_LKPositiva_zPositivo DOUBLE NOT NULL,
+	intervaloConfianca_LKNegativa_zNegativo DOUBLE NOT NULL,
+	intervaloConfianca_LKNegativa_zPositivo DOUBLE NOT NULL,
+	peso_MH_LKPositiva DOUBLE NOT NULL,
+	peso_MH_LKNegativa DOUBLE NOT NULL
+);
+
+CREATE TABLE estudo_individual (
+	id INTEGER AUTO_INCREMENT PRIMARY KEY,
+	titulo VARCHAR(100) NOT NULL,
+	descricao LONGTEXT,
+	vp INTEGER NOT NULL,
+	fp INTEGER NOT NULL,
+	vn INTEGER NOT NULL,
+	fn INTEGER NOT NULL,
+	idMetanaliseEstudoIndividual INTEGER,
+	idEstudoGlobal INTEGER,
+	FOREIGN KEY (idMetanaliseEstudoIndividual) REFERENCES metanalise_estudo_individual(id),
+	FOREIGN KEY (idEstudoGlobal) REFERENCES estudo_global(id)
+);
+
+
