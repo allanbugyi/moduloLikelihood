@@ -17,8 +17,8 @@
         <property name="especificidade" type="double">
             <column name="especificidade" precision="22" scale="0" not-null="true" />
         </property>
-        <property name="likelihoodPositiviva" type="double">
-            <column name="likelihoodPositiviva" precision="22" scale="0" not-null="true" />
+        <property name="likelihoodPositiva" type="double">
+            <column name="likelihoodPositiva" precision="22" scale="0" not-null="true" />
         </property>
         <property name="likelihoodNegativa" type="double">
             <column name="likelihoodNegativa" precision="22" scale="0" not-null="true" />
@@ -32,8 +32,8 @@
         <property name="intervaloConfiancaLkpositivaZNegativo" type="double">
             <column name="intervaloConfianca_LKPositiva_zNegativo" precision="22" scale="0" not-null="true" />
         </property>
-        <property name="intervaloConfiancaLkpositivoZPositivo" type="double">
-            <column name="intervaloConfianca_LKPositivo_zPositivo" precision="22" scale="0" not-null="true" />
+        <property name="intervaloConfiancaLkpositivaZPositivo" type="double">
+            <column name="intervaloConfianca_LKPositiva_zPositivo" precision="22" scale="0" not-null="true" />
         </property>
         <property name="intervaloConfiancaLknegativaZNegativo" type="double">
             <column name="intervaloConfianca_LKNegativa_zNegativo" precision="22" scale="0" not-null="true" />

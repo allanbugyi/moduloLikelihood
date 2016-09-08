@@ -28,7 +28,7 @@ public class Agrupados {
         double somatorioPesosLKPositiva = 0, somatorioPesosPositiva = 0, somatorioPesosLKNegativa = 0, somatorioPesosNegativa = 0;
         
         for(EstudoIndividual estInd : Agrupados.estudosIndividuais){
-            somatorioPesosLKPositiva += ((estInd.getMetanaliseEstudoIndividual().getPesoMhLkpositiva()) * (estInd.getMetanaliseEstudoIndividual().getLikelihoodPositiviva()));
+            somatorioPesosLKPositiva += ((estInd.getMetanaliseEstudoIndividual().getPesoMhLkpositiva()) * (estInd.getMetanaliseEstudoIndividual().getLikelihoodPositiva()));
             somatorioPesosPositiva   += (estInd.getMetanaliseEstudoIndividual().getPesoMhLkpositiva());
             
             somatorioPesosLKNegativa   += ((estInd.getMetanaliseEstudoIndividual().getPesoMhLknegativa()) * (estInd.getMetanaliseEstudoIndividual().getLikelihoodNegativa()));

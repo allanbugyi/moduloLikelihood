@@ -14,7 +14,7 @@ import moduloLikelihoodException.ModuloLikelihoodException;
 public class Metanalise {
     
     private static double   verdadeiroPositivo, verdadeiroNegativo, falsoPositivo, falsoNegativo,
-                            sensibilidade, especificidade, likelihoodPositiviva, likelihoodNegativa,
+                            sensibilidade, especificidade, likelihoodPositiva, likelihoodNegativa,
                             erroPadrao_lkPositiva, erroPadrao_lkNegativa, percentualIntervaloConfianca, z,
                             intervaloConfianca_LKPositiva_zPositivo, intervaloConfianca_LKPositiva_zNegativo,
                             intervaloConfianca_LKNegativa_zPositivo, intervaloConfianca_LKNegativa_zNegativo,
@@ -38,6 +38,7 @@ public class Metanalise {
         Metanalise.calculaIntervalosConfianca();
         Metanalise.calculaPeso_MH_LKPositiva();
         Metanalise.calculaPeso_MH_LKNegativa();
+        printa();
     }
     
     public static void resetaValores(){
@@ -47,7 +48,7 @@ public class Metanalise {
         Metanalise.falsoNegativo                = 0;
         Metanalise.sensibilidade                = 0;
         Metanalise.especificidade               = 0;
-        Metanalise.likelihoodPositiviva         = 0;
+        Metanalise.likelihoodPositiva         = 0;
         Metanalise.likelihoodNegativa           = 0;
         Metanalise.erroPadrao_lkPositiva        = 0;
         Metanalise.erroPadrao_lkNegativa        = 0;
@@ -95,7 +96,7 @@ public class Metanalise {
     
     private static void calculaLikelihood() throws moduloLikelihoodException.ModuloLikelihoodException {
         if((1-especificidade)!=0 && especificidade !=0){
-            likelihoodPositiviva = sensibilidade/(1-especificidade);
+            likelihoodPositiva = sensibilidade/(1-especificidade);
              likelihoodNegativa   = (1-sensibilidade)/especificidade;
         }else{
             throw new moduloLikelihoodException.ModuloLikelihoodException("Não foi possível realizar a metanálise, reveja os valores fornecidos na tabela 2x2. Divisão por zero impossível.");
@@ -120,8 +121,8 @@ public class Metanalise {
     }
     
     private static void calculaIntervalosConfianca(){
-        intervaloConfianca_LKPositiva_zNegativo = likelihoodPositiviva * (Math.pow(Math.E, (- z * erroPadrao_lkPositiva)));
-        intervaloConfianca_LKPositiva_zPositivo = likelihoodPositiviva * (Math.pow(Math.E, (z * erroPadrao_lkPositiva)));
+        intervaloConfianca_LKPositiva_zNegativo = likelihoodPositiva * (Math.pow(Math.E, (- z * erroPadrao_lkPositiva)));
+        intervaloConfianca_LKPositiva_zPositivo = likelihoodPositiva * (Math.pow(Math.E, (z * erroPadrao_lkPositiva)));
         
         intervaloConfianca_LKNegativa_zNegativo = likelihoodNegativa * (Math.pow(Math.E, (- z * erroPadrao_lkNegativa)));
         intervaloConfianca_LKNegativa_zPositivo = likelihoodNegativa * (Math.pow(Math.E, (z * erroPadrao_lkNegativa)));
@@ -135,7 +136,7 @@ public class Metanalise {
         System.out.println("Percentual Intervalo Conf: " + percentualIntervaloConfianca);
         System.out.println("Sensibilidade: " + sensibilidade);
         System.out.println("Especificidade: " + especificidade);
-        System.out.println("Likelihood Positiva: " + likelihoodPositiviva);
+        System.out.println("Likelihood Positiva: " + likelihoodPositiva);
         System.out.println("Likelihood Negativa: " + likelihoodNegativa);
         System.out.println("Erro padrao Likelihood Positiva: " + erroPadrao_lkPositiva);
         System.out.println("Erro padrao Likelihood Negativa: " + erroPadrao_lkNegativa);
@@ -180,8 +181,8 @@ public class Metanalise {
         return especificidade;
     }
 
-    public static double getLikelihoodPositiviva() {
-        return likelihoodPositiviva;
+    public static double getLikelihoodPositiva() {
+        return likelihoodPositiva;
     }
 
     public static double getLikelihoodNegativa() {
@@ -252,8 +253,8 @@ public class Metanalise {
         Metanalise.especificidade = especificidade;
     }
 
-    public static void setLikelihoodPositiviva(double likelihoodPositiviva) {
-        Metanalise.likelihoodPositiviva = likelihoodPositiviva;
+    public static void setLikelihoodPositiva(double likelihoodPositiviva) {
+        Metanalise.likelihoodPositiva = likelihoodPositiviva;
     }
 
     public static void setLikelihoodNegativa(double likelihoodNegativa) {

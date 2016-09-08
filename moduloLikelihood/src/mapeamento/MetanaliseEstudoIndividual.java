@@ -15,12 +15,12 @@ public class MetanaliseEstudoIndividual  implements java.io.Serializable {
      private double percentualIntervaloConfianca;
      private double sensibilidade;
      private double especificidade;
-     private double likelihoodPositiviva;
+     private double likelihoodPositiva;
      private double likelihoodNegativa;
      private double erroPadraoLkPositiva;
      private double erroPadraoLkNegativa;
      private double intervaloConfiancaLkpositivaZNegativo;
-     private double intervaloConfiancaLkpositivoZPositivo;
+     private double intervaloConfiancaLkpositivaZPositivo;
      private double intervaloConfiancaLknegativaZNegativo;
      private double intervaloConfiancaLknegativaZPositivo;
      private double pesoMhLkpositiva;
@@ -31,37 +31,37 @@ public class MetanaliseEstudoIndividual  implements java.io.Serializable {
     }
 
 	
-    public MetanaliseEstudoIndividual(double percentualIntervaloConfianca, double sensibilidade, double especificidade, double likelihoodPositiviva, 
+    public MetanaliseEstudoIndividual(double percentualIntervaloConfianca, double sensibilidade, double especificidade, double likelihoodPositiva, 
                                         double likelihoodNegativa, double erroPadraoLkPositiva, double erroPadraoLkNegativa, double intervaloConfiancaLkpositivaZNegativo, 
-                                        double intervaloConfiancaLkpositivoZPositivo, double intervaloConfiancaLknegativaZNegativo, double intervaloConfiancaLknegativaZPositivo, 
+                                        double intervaloConfiancaLkpositivaZPositivo, double intervaloConfiancaLknegativaZNegativo, double intervaloConfiancaLknegativaZPositivo, 
                                         double pesoMhLkpositiva, double pesoMhLknegativa) {
         this.percentualIntervaloConfianca = percentualIntervaloConfianca;
         this.sensibilidade = sensibilidade;
         this.especificidade = especificidade;
-        this.likelihoodPositiviva = likelihoodPositiviva;
+        this.likelihoodPositiva = likelihoodPositiva;
         this.likelihoodNegativa = likelihoodNegativa;
         this.erroPadraoLkPositiva = erroPadraoLkPositiva;
         this.erroPadraoLkNegativa = erroPadraoLkNegativa;
         this.intervaloConfiancaLkpositivaZNegativo = intervaloConfiancaLkpositivaZNegativo;
-        this.intervaloConfiancaLkpositivoZPositivo = intervaloConfiancaLkpositivoZPositivo;
+        this.intervaloConfiancaLkpositivaZPositivo = intervaloConfiancaLkpositivaZPositivo;
         this.intervaloConfiancaLknegativaZNegativo = intervaloConfiancaLknegativaZNegativo;
         this.intervaloConfiancaLknegativaZPositivo = intervaloConfiancaLknegativaZPositivo;
         this.pesoMhLkpositiva = pesoMhLkpositiva;
         this.pesoMhLknegativa = pesoMhLknegativa;
     }
-    public MetanaliseEstudoIndividual(double percentualIntervaloConfianca, double sensibilidade, double especificidade, double likelihoodPositiviva, double likelihoodNegativa, 
+    public MetanaliseEstudoIndividual(double percentualIntervaloConfianca, double sensibilidade, double especificidade, double likelihoodPositiva, double likelihoodNegativa, 
                                         double erroPadraoLkPositiva, double erroPadraoLkNegativa, double intervaloConfiancaLkpositivaZNegativo, 
-                                        double intervaloConfiancaLkpositivoZPositivo, double intervaloConfiancaLknegativaZNegativo, double intervaloConfiancaLknegativaZPositivo, 
+                                        double intervaloConfiancaLkpositivaZPositivo, double intervaloConfiancaLknegativaZNegativo, double intervaloConfiancaLknegativaZPositivo, 
                                         double pesoMhLkpositiva, double pesoMhLknegativa, Set estudoIndividuals) {
        this.percentualIntervaloConfianca = percentualIntervaloConfianca;
        this.sensibilidade = sensibilidade;
        this.especificidade = especificidade;
-       this.likelihoodPositiviva = likelihoodPositiviva;
+       this.likelihoodPositiva = likelihoodPositiva;
        this.likelihoodNegativa = likelihoodNegativa;
        this.erroPadraoLkPositiva = erroPadraoLkPositiva;
        this.erroPadraoLkNegativa = erroPadraoLkNegativa;
        this.intervaloConfiancaLkpositivaZNegativo = intervaloConfiancaLkpositivaZNegativo;
-       this.intervaloConfiancaLkpositivoZPositivo = intervaloConfiancaLkpositivoZPositivo;
+       this.intervaloConfiancaLkpositivaZPositivo = intervaloConfiancaLkpositivaZPositivo;
        this.intervaloConfiancaLknegativaZNegativo = intervaloConfiancaLknegativaZNegativo;
        this.intervaloConfiancaLknegativaZPositivo = intervaloConfiancaLknegativaZPositivo;
        this.pesoMhLkpositiva = pesoMhLkpositiva;
@@ -97,12 +97,12 @@ public class MetanaliseEstudoIndividual  implements java.io.Serializable {
     public void setEspecificidade(double especificidade) {
         this.especificidade = especificidade;
     }
-    public double getLikelihoodPositiviva() {
-        return this.likelihoodPositiviva;
+    public double getLikelihoodPositiva() {
+        return this.likelihoodPositiva;
     }
     
-    public void setLikelihoodPositiviva(double likelihoodPositiviva) {
-        this.likelihoodPositiviva = likelihoodPositiviva;
+    public void setLikelihoodPositiva(double likelihoodPositiva) {
+        this.likelihoodPositiva = likelihoodPositiva;
     }
     public double getLikelihoodNegativa() {
         return this.likelihoodNegativa;
@@ -132,12 +132,12 @@ public class MetanaliseEstudoIndividual  implements java.io.Serializable {
     public void setIntervaloConfiancaLkpositivaZNegativo(double intervaloConfiancaLkpositivaZNegativo) {
         this.intervaloConfiancaLkpositivaZNegativo = intervaloConfiancaLkpositivaZNegativo;
     }
-    public double getIntervaloConfiancaLkpositivoZPositivo() {
-        return this.intervaloConfiancaLkpositivoZPositivo;
+    public double getIntervaloConfiancaLkpositivaZPositivo() {
+        return this.intervaloConfiancaLkpositivaZPositivo;
     }
     
-    public void setIntervaloConfiancaLkpositivoZPositivo(double intervaloConfiancaLkpositivoZPositivo) {
-        this.intervaloConfiancaLkpositivoZPositivo = intervaloConfiancaLkpositivoZPositivo;
+    public void setIntervaloConfiancaLkpositivaZPositivo(double intervaloConfiancaLkpositivaZPositivo) {
+        this.intervaloConfiancaLkpositivaZPositivo = intervaloConfiancaLkpositivaZPositivo;
     }
     public double getIntervaloConfiancaLknegativaZNegativo() {
         return this.intervaloConfiancaLknegativaZNegativo;

@@ -24,7 +24,7 @@ public class CRUD {
     private static Session session = null;
     private static SessionFactory factory = null;
     
-    //SQL queries
+    //Hibernate queries
     private static String QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_TITULO = "from mapeamento.EstudoIndividual estInd where estInd.titulo like '", 
                           QUERY_CONSULTA_ESTUDO_INDIVIDUAL_POR_ID     = "from mapeamento.EstudoIndividual estInd where estInd.id like '",
                           QUERY_CONSULTA_TODOS_ESTUDOS_INDIVIDUAIS    = "from mapeamento.EstudoIndividual",
@@ -66,9 +66,9 @@ public class CRUD {
     
     public static void executaCadastro(EstudoIndividual estInd) throws ModuloLikelihoodException, NumberFormatException{
         if( !estInd.getTitulo().equals("")     &&
-             estInd.getVp() > 0                &&
-             estInd.getFp() > 0                &&
-             estInd.getVn() > 0                &&
+             estInd.getVp() > 0               &&
+             estInd.getFp() > 0               &&
+             estInd.getVn() > 0               &&
              estInd.getFn() > 0                
           )
         {
@@ -92,6 +92,10 @@ public class CRUD {
     
     public static void executaAtualizacao(EstudoIndividual estInd){
         transacaoAtualizacao(estInd);
+    }
+    
+    public static void executaAtualizacao(MetanaliseEstudoIndividual metEstInd){
+        transacaoAtualizacao(metEstInd);
     }
     
     public static void executaAtualizacao(EstudoGlobal estGlob){
@@ -175,6 +179,17 @@ public class CRUD {
         try{
            session.beginTransaction();
            session.update(estInd);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
+    
+    private static void transacaoAtualizacao(MetanaliseEstudoIndividual metEstInd){
+        try{
+           session.beginTransaction();
+           session.update(metEstInd);
            session.getTransaction().commit();
             
         }catch(HibernateException he){

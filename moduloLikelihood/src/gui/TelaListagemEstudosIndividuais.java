@@ -26,13 +26,18 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
     private ArrayList <EstudoIndividual> listaEstInd = null;
     private ArrayList <EstudoGlobal> listaEstGlob = null;
     private EstudoIndividual estInd = null;
+    private double percentualIntervaloDeConfianca;
     
     /**
      * Creates new form TelaListagemEstudosIndividuais
      */
-    public TelaListagemEstudosIndividuais() {
+    public TelaListagemEstudosIndividuais(double percentualIntervaloDeConfianca) {
+        this.percentualIntervaloDeConfianca = percentualIntervaloDeConfianca;
         inicializaTela();
         initComponents();
+    }
+
+    private TelaListagemEstudosIndividuais() {
     }
 
     /**
@@ -47,18 +52,18 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listagemEstInd_tabela = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         listagemEstInd_deletar_button = new javax.swing.JButton();
-        listagemEstInd_alterarDados_button = new javax.swing.JButton();
         listagemEstInd_removerEstGlob_button = new javax.swing.JButton();
+        listagemEstInd_alterarDados_button = new javax.swing.JButton();
         listagemEstInd_abrirMet_button = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listagem Estudos Individuais");
+        setName("TelaListagemEstudosIndividuais"); // NOI18N
         setResizable(false);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Estudos Individuais", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "  ESTUDOS  INDIVIDUAIS  ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         listagemEstInd_tabela.setModel(new javax.swing.table.DefaultTableModel(tableData, tableHeaders){
             @Override
@@ -92,17 +97,12 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
+    jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
     listagemEstInd_deletar_button.setText("Deletar");
     listagemEstInd_deletar_button.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             listagemEstInd_deletar_buttonActionPerformed(evt);
-        }
-    });
-
-    listagemEstInd_alterarDados_button.setText("Alterar dados");
-    listagemEstInd_alterarDados_button.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            listagemEstInd_alterarDados_buttonActionPerformed(evt);
         }
     });
 
@@ -113,6 +113,13 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
         }
     });
 
+    listagemEstInd_alterarDados_button.setText("Alterar dados");
+    listagemEstInd_alterarDados_button.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            listagemEstInd_alterarDados_buttonActionPerformed(evt);
+        }
+    });
+
     listagemEstInd_abrirMet_button.setText("Abrir Metanálise");
     listagemEstInd_abrirMet_button.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,9 +127,32 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
         }
     });
 
-    jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
-
-    jSeparator2.setForeground(new java.awt.Color(204, 204, 204));
+    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+    jPanel2.setLayout(jPanel2Layout);
+    jPanel2Layout.setHorizontalGroup(
+        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel2Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addContainerGap())
+    );
+    jPanel2Layout.setVerticalGroup(
+        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGap(82, 82, 82)
+            .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(40, 40, 40)
+            .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(42, 42, 42)
+            .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(50, 50, 50)
+            .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -131,36 +161,22 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(42, 42, 42)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1)
-                .addComponent(jSeparator2))
-            .addContainerGap(60, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(98, 98, 98)
-                    .addComponent(listagemEstInd_abrirMet_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(23, 23, 23)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(listagemEstInd_alterarDados_button, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(27, 27, 27)
-                    .addComponent(listagemEstInd_removerEstGlob_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(22, 22, 22)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(listagemEstInd_deletar_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(9, 9, 9)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addContainerGap())
     );
 
     pack();
@@ -178,10 +194,10 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
                     this.listaEstInd = persistencia.CRUD.executaConsulta(String.valueOf(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0)), null);
                     if(this.listaEstInd.get(0).getEstudoGlobal() != null){
                         if(JOptionPane.YES_OPTION == (JOptionPane.showConfirmDialog(this.rootPane, "A alteração deste estudo alterará o valor do estudo global do qual faz parte. Deseja prosseguir?", "Confirmação de alteração", JOptionPane.INFORMATION_MESSAGE))){
-                            new gui.TelaEstudoIndividual(this.listaEstInd, true).setVisible(true);    
+                            new gui.TelaEstudoIndividual(this.listaEstInd, true, this.percentualIntervaloDeConfianca).setVisible(true);    
                         }
                     }else{
-                        new gui.TelaEstudoIndividual(this.listaEstInd).setVisible(true);    
+                        new gui.TelaEstudoIndividual(this.listaEstInd, this.percentualIntervaloDeConfianca).setVisible(true);    
                     }
             } catch (ModuloLikelihoodException ex) {
                     JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
@@ -249,13 +265,12 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
                     }
                     DefaultTableModel modeloTabela = (DefaultTableModel) this.listagemEstInd_tabela.getModel();
                     modeloTabela.removeRow(this.listagemEstInd_tabela.getSelectedRow());
+                    this.listagemEstInd_tabela.changeSelection(0, 0, true, false);
                 } else{
                     JOptionPane.showMessageDialog(this.rootPane, "Não é possível excluir o estudo individual, é necessário removê-lo do respectivo estudo global.", "Erro na exclusão do estudo individual", JOptionPane.ERROR_MESSAGE);
                 }
             }
-       }else{
-            this.listagemEstInd_tabela.changeSelection(0, 0, true, false);
-        }
+       }
     }//GEN-LAST:event_listagemEstInd_deletar_buttonActionPerformed
 
     /**
@@ -306,27 +321,26 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
         for(Object obj : persistencia.CRUD.executaConsulta()){
             this.estInd = (EstudoIndividual) obj;
             this.oneRow = new Vector<Object>();
-            this.oneRow.add(estInd.getId());
-            this.oneRow.add(estInd.getTitulo());
-            this.oneRow.add(estInd.getDescricao());
-            this.oneRow.add(estInd.getVp());
-            this.oneRow.add(estInd.getFp());
-            this.oneRow.add(estInd.getVn());
-            this.oneRow.add(estInd.getFn());
+            this.oneRow.add(this.estInd.getId());
+            this.oneRow.add(this.estInd.getTitulo());
+            this.oneRow.add(this.estInd.getDescricao());
+            this.oneRow.add(this.estInd.getVp());
+            this.oneRow.add(this.estInd.getFp());
+            this.oneRow.add(this.estInd.getVn());
+            this.oneRow.add(this.estInd.getFn());
             if(estInd.getEstudoGlobal()!=null){
-                this.oneRow.add(estInd.getEstudoGlobal().getId());
+                this.oneRow.add(this.estInd.getEstudoGlobal().getId());
             }else{
                 this.oneRow.add("-");
             }
-            tableData.add(oneRow);
+            tableData.add(this.oneRow);
         }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton listagemEstInd_abrirMet_button;
     private javax.swing.JButton listagemEstInd_alterarDados_button;
     private javax.swing.JButton listagemEstInd_deletar_button;

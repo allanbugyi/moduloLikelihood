@@ -133,6 +133,7 @@ public class TelaHome extends javax.swing.JFrame {
 
         EstudoGlobalMenu.setText("Estudos Globais");
 
+        EstudoGlobal_Cadastrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         EstudoGlobal_Cadastrar.setText("Cadastrar");
         EstudoGlobal_Cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +142,7 @@ public class TelaHome extends javax.swing.JFrame {
         });
         EstudoGlobalMenu.add(EstudoGlobal_Cadastrar);
 
+        EstudoGlobal_Listagem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         EstudoGlobal_Listagem.setText("Listagem");
         EstudoGlobal_Listagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +227,7 @@ public class TelaHome extends javax.swing.JFrame {
     }//GEN-LAST:event_SobreAjudaActionPerformed
 
     private void EstudoIndividual_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoIndividual_ExcluirActionPerformed
-        new gui.TelaListagemEstudosIndividuais().setVisible(true);
+        new gui.TelaListagemEstudosIndividuais(this.intervaloDeConfianca).setVisible(true);
     }//GEN-LAST:event_EstudoIndividual_ExcluirActionPerformed
 
     private void EstudoGlobal_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstudoGlobal_CadastrarActionPerformed
@@ -272,7 +274,7 @@ public class TelaHome extends javax.swing.JFrame {
     }
     
     public double getIntervaloDeConfianca() {
-        return intervaloDeConfianca;
+        return this.intervaloDeConfianca;
     }
 
     public void setIntervaloDeConfianca(double intervaloDeConfianca) {

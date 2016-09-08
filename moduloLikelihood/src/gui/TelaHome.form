@@ -51,6 +51,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="EstudoGlobal_Cadastrar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+C"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cadastrar"/>
               </Properties>
               <Events>
@@ -59,6 +62,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="EstudoGlobal_Listagem">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+L"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Listagem"/>
               </Properties>
               <Events>
