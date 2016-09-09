@@ -8,6 +8,7 @@ package gui;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import mapeamento.EstudoGlobal;
 
 /**
@@ -46,6 +47,7 @@ public class TelaListagemEstudosGlobais extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listagem Estudos Globais");
+        setIconImage(new ImageIcon("src/conteudo/icone.jpg").getImage());
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

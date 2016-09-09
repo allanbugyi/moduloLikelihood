@@ -33,7 +33,7 @@ public class CRUD {
     
     public CRUD(){
     }
-    
+        
     public static ArrayList executaConsulta(String id, String titulo) throws ModuloLikelihoodException{
         ArrayList list = null;
         if(!id.equals(null) && !id.equals("")){
@@ -108,6 +108,10 @@ public class CRUD {
     
     public static void executaExclusao(EstudoIndividual estInd){
         transacaoExclusao(estInd);
+    }
+    
+    public static void executaExclusao(MetanaliseEstudoIndividual metEstInd){
+        transacaoExclusao(metEstInd);
     }
     
     private static ArrayList transacaoConsulta(String query){
@@ -223,6 +227,17 @@ public class CRUD {
         try{
            session.beginTransaction();
            session.delete(estInd);
+           session.getTransaction().commit();
+            
+        }catch(HibernateException he){
+            he.printStackTrace();
+        }
+    }
+    
+    private static void transacaoExclusao(MetanaliseEstudoIndividual metEstInd){
+        try{
+           session.beginTransaction();
+           session.delete(metEstInd);
            session.getTransaction().commit();
             
         }catch(HibernateException he){

@@ -37,7 +37,7 @@ public class Agrupados {
         
         Agrupados.LKPositiva = somatorioPesosLKPositiva/somatorioPesosPositiva;
         Agrupados.LKNegativa = somatorioPesosLKNegativa/somatorioPesosNegativa;
-        printa();
+        //printa();
     }
     
     public static void resetaValores(){

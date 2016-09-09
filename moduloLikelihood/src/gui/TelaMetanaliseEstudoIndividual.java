@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import mapeamento.EstudoIndividual;
 import mapeamento.MetanaliseEstudoIndividual;
@@ -96,6 +97,7 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Metanálise Estudo Individual");
+        setIconImage(new ImageIcon("src/conteudo/icone.jpg").getImage());
         setResizable(false);
 
         EstudoTitulo_label.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -493,17 +495,16 @@ public class TelaMetanaliseEstudoIndividual extends javax.swing.JFrame {
             this.jPanel6.add(this.EstudoIndividual_titulo_label);
         }
         
-        try {
-            queryResults = persistencia.CRUD.executaConsulta(String.valueOf(this.MetEstInd_TabelaListagem_table.getValueAt(this.MetEstInd_TabelaListagem_table.getSelectedRow(), 0)), null);
-            EstudoIndividual estInd = null;
-            if (!queryResults.isEmpty()) estInd = (EstudoIndividual) queryResults.get(0); 
-            this.atualizaTela(estInd.getMetanaliseEstudoIndividual(), estInd.getTitulo());
-            
-            
-           // int estInd_titulo_labelLocation = 1219/this.EstudoTitulo_label.getSize().width;
-           // this.EstudoTitulo_label.setLocation(1, 1);
-        } catch (ModuloLikelihoodException ex) {
-            JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+        if(this.MetEstInd_TabelaListagem_table.getSelectedRow()>-1)
+        {
+            try {
+                queryResults = persistencia.CRUD.executaConsulta(String.valueOf(this.MetEstInd_TabelaListagem_table.getValueAt(this.MetEstInd_TabelaListagem_table.getSelectedRow(), 0)), null);
+                EstudoIndividual estInd = null;
+                if (!queryResults.isEmpty()) estInd = (EstudoIndividual) queryResults.get(0); 
+                this.atualizaTela(estInd.getMetanaliseEstudoIndividual(), estInd.getTitulo());
+            } catch (ModuloLikelihoodException ex) {
+                JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
+            }
         }
     }//GEN-LAST:event_MetEstInd_TabelaListagem_tableMouseClicked
 

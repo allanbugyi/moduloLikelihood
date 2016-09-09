@@ -8,6 +8,7 @@ package gui;
 import estatistica.Agrupados;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import mapeamento.EstudoGlobal;
@@ -94,6 +95,7 @@ public class TelaEstudoGlobal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estudo Global");
+        setIconImage(new ImageIcon("src/conteudo/icone.jpg").getImage());
         setName("TelaEstudoGlobal"); // NOI18N
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

@@ -38,7 +38,7 @@ public class Metanalise {
         Metanalise.calculaIntervalosConfianca();
         Metanalise.calculaPeso_MH_LKPositiva();
         Metanalise.calculaPeso_MH_LKNegativa();
-        printa();
+        //printa();
     }
     
     public static void resetaValores(){

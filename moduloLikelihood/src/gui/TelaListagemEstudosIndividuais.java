@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 import mapeamento.EstudoGlobal;
 import mapeamento.EstudoIndividual;
 import moduloLikelihoodException.ModuloLikelihoodException;
@@ -60,6 +61,7 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Listagem Estudos Individuais");
+        setIconImage(new ImageIcon("src/conteudo/icone.jpg").getImage());
         setName("TelaListagemEstudosIndividuais"); // NOI18N
         setResizable(false);
 
@@ -183,13 +185,13 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listagemEstInd_abrirMet_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagemEstInd_abrirMet_buttonActionPerformed
-       if(this.listagemEstInd_tabela.getSelectedRow() >= 0){
+       if(this.listagemEstInd_tabela.getRowCount()>0 && this.listagemEstInd_tabela.getSelectedRow()>-1){
            new gui.TelaMetanaliseEstudoIndividual(this.listagemEstInd_tabela.getSelectedRow()).setVisible(true);
        }
     }//GEN-LAST:event_listagemEstInd_abrirMet_buttonActionPerformed
 
     private void listagemEstInd_alterarDados_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagemEstInd_alterarDados_buttonActionPerformed
-        if(this.listagemEstInd_tabela.getSelectedRow()>=0){
+        if(this.listagemEstInd_tabela.getRowCount()>0 && this.listagemEstInd_tabela.getSelectedRow()>-1){
             try {
                     this.listaEstInd = persistencia.CRUD.executaConsulta(String.valueOf(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0)), null);
                     if(this.listaEstInd.get(0).getEstudoGlobal() != null){
@@ -206,7 +208,7 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
     }//GEN-LAST:event_listagemEstInd_alterarDados_buttonActionPerformed
 
     private void listagemEstInd_removerEstGlob_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagemEstInd_removerEstGlob_buttonActionPerformed
-        if(this.listagemEstInd_tabela.getSelectedRow()>-1){
+        if(this.listagemEstInd_tabela.getRowCount()>0 && this.listagemEstInd_tabela.getSelectedRow()>-1){
             if(!(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 7).toString()).equals("-")){
                 try {
                     this.estInd = (EstudoIndividual) persistencia.CRUD.executaConsulta(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0).toString(), null).get(0);
@@ -253,13 +255,15 @@ public class TelaListagemEstudosIndividuais extends javax.swing.JFrame {
     }//GEN-LAST:event_listagemEstInd_removerEstGlob_buttonActionPerformed
 
     private void listagemEstInd_deletar_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listagemEstInd_deletar_buttonActionPerformed
-        if(this.listagemEstInd_tabela.getSelectedRow()>-1){
+        if(this.listagemEstInd_tabela.getRowCount()>0 && this.listagemEstInd_tabela.getSelectedRow()>-1){
             if(JOptionPane.YES_OPTION == (JOptionPane.showConfirmDialog(this.rootPane, "Tem certeza que deseja excluir o estudo " +
                                                                         (this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0).toString())
                                                                         +" ?" , "Confirmação de exclusão", JOptionPane.WARNING_MESSAGE))){
                 if((this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 7).toString().equals("-"))){
                     try {
-                        persistencia.CRUD.executaExclusao((EstudoIndividual)(persistencia.CRUD.executaConsulta(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0).toString(), null).get(0)));
+                        this.estInd = (EstudoIndividual)persistencia.CRUD.executaConsulta(this.listagemEstInd_tabela.getValueAt(this.listagemEstInd_tabela.getSelectedRow(), 0).toString(), null).get(0);
+                        persistencia.CRUD.executaExclusao((this.estInd));
+                        persistencia.CRUD.executaExclusao(this.estInd.getMetanaliseEstudoIndividual());
                     } catch (ModuloLikelihoodException ex) {
                         JOptionPane.showMessageDialog(this.rootPane, ex.getMessage());
                     }

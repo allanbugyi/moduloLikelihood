@@ -9,6 +9,7 @@ package gui;
 import estatistica.Agrupados;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import mapeamento.EstudoIndividual;
 import estatistica.Metanalise;
 import java.awt.Color;
@@ -103,6 +104,7 @@ public class TelaEstudoIndividual extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Estudo Individual");
+        setIconImage(new ImageIcon("src/conteudo/icone.jpg").getImage());
         setName("TelaEstudoIndividual"); // NOI18N
         setResizable(false);
 

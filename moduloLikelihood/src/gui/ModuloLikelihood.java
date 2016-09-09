@@ -21,6 +21,8 @@ public class ModuloLikelihood {
         
         persistencia.CRUD.criaSessaoHibernate();
         
+        
+        
         new gui.TelaHome().setVisible(true);
     }
     
