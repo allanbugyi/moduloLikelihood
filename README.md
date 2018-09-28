@@ -12,7 +12,8 @@ About the project
 Version 1.0 - Validated
 
 Author: Allan S. B. Bugyi (allan.sb2@outlook.com)
-LABepi/UNESC - 2015
+LABepi/UNESC - Criciúma/SC - Brazil
+12/2015
 
 This project was developed as an independent study in the course of 02/2015 semester, with brazilian national educational agency CAPES funding (PIBIC scholarship).
 
